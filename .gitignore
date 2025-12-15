@@ -1,0 +1,19 @@
+# Entorno virtual
+.venv/
+__pycache__/
+pokemon2/
+
+# IDEs
+.vscode/
+
+# Archivos de sistema
+.DS_Store
+
+# Ficheros sql o txt
+*.sql
+*.bat
+*.bak
+*.txt
+
+!pokemon.sql
+!views.sql
