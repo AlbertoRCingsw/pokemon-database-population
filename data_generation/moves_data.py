@@ -16,8 +16,8 @@ def get_and_insert_effect(cur, move_target, move_effect_entries, move_meta):
         drain = move_meta.get("drain") or 0
         crit_rate = move_meta.get("crit_rate") or 0
         healing = move_meta.get("healing") or 0
-        max_hits, max_turns = move_meta.get("max_hits") or 0, move_meta.get("max_turns") or 0 
-        min_hits, min_turns = move_meta.get("min_hits") or 0, move_meta.get("min_turns") or 0
+        max_hits, max_turns = move_meta.get("max_hits") or 1, move_meta.get("max_turns") or 0 
+        min_hits, min_turns = move_meta.get("min_hits") or 1, move_meta.get("min_turns") or 0
         stat_chance = move_meta.get("stat_chance") or 0
 
         if (move_meta["ailment"] is not None):

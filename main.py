@@ -9,6 +9,7 @@ from data_generation import version_groups_data
 from data_generation import pokemon_data
 from data_generation import moves_data
 from data_generation import moves_by_pokemon
+from data_generation import pokemon_special_stat
 
 # Open connection to the database
 conn = db.connect_to_db()
@@ -19,7 +20,7 @@ names = ['type', 'generation', 'type_generation_relationship', 'version_group', 
 scripts_directory = Path("./scripts")
 script_names = utils.create_scripts(scripts_directory, names)
 
-t_0 = t.time() # Later, the execution time will be checked
+t_0 = t.time() # To check the execution time
 
 # Variables to be used in for loops
 upper_types_limit = 19 # 1 + the number of types
@@ -58,9 +59,13 @@ for generation_number in range(1, upper_generations_limit):
 for generation_number in range(1, upper_generations_limit):
     moves_by_pokemon.insert_learned_moves(cur, learned_moves_script, generation_number)
 
+db.commit_data(conn)
+
+pokemon_special_stat.insert_special_stat(cur)
+
 # Closes connection to the database
 db.close_connection_to_db(conn, cur)
 
-# The execution time is calculated and shown
+# The execution time is calculated and shown here
 time = t.time() - t_0
 print(time/60)
