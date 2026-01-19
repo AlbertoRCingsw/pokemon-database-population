@@ -27,9 +27,10 @@ Right now, the database can answer questions such as when does a specific Pokém
 
 ## Acomplished tasks in the last commit
 
-    • Making sure no potentially troublesome null values are stored in the database. Mainly moves metadata. 
-    • Added the base special stat for the 151 Pokémon featured in the first generation. The base special 
-    stat for Pokémon in Gen II onwards is null because it is really undefined.
+    • Making sure no potentially troublesome null values are stored in the database. 
+    Mainly moves metadata. 
+    • Added the base special stat for the 151 Pokémon featured in the first generation. 
+    The base special stat for Pokémon in Gen II onwards is null because it is really undefined.
 
 ## To Do
 
