@@ -28,16 +28,21 @@ Right now, the database can answer questions such as when does a specific Pokém
 ## Acomplished tasks in the last commit
 
     • Making sure no potentially troublesome null values are stored in the database. Mainly moves metadata. 
-    • Added the base special stat for the 151 Pokémon featured in the first generation. The base special stat for Pokémon in Gen II onwards is null because it is really undefined.
+    • Added the base special stat for the 151 Pokémon featured in the first generation. The base special 
+    stat for Pokémon in Gen II onwards is null because it is really undefined.
 
 ## To Do
 
     • Create a small script to run both Pokémon.sql and views.sql.
-    • Right now, the only stats featured for each Pokémon are the current ones. Manage how they have changed across generations.
+    • Right now, the only stats featured for each Pokémon are the current ones. Manage how they have 
+    changed across generations.
     • Insert the Pokémon gender ratios.
-    • Insert whether or not the forms are switchable in combat. For exmaple, Rotom cannot change forms in the middle of combat, but Meloetta and Darmanitan both can.
-    • Modify the database so that it includes all the moves metadata. There are some specific fields missing.
-    • Insert abilities and how some abilities themselves and their availability have changed across generations.
+    • Insert whether or not the forms are switchable in combat. For exmaple, Rotom cannot change forms 
+    in the middle of combat, but Meloetta and Darmanitan both can.
+    • Modify the database so that it includes all the moves metadata. 
+    There are some specific fields missing.
+    • Insert abilities and how some abilities themselves and their availability have changed 
+    across generations.
     • Insert items and their availability across generations.
     • Create tables for managing Pokémon teams and trainers.
 
