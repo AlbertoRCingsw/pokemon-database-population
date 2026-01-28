@@ -55,36 +55,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `pokemon`.`effect`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `pokemon`.`effect` ;
-
-CREATE TABLE IF NOT EXISTS `pokemon`.`effect` (
-  `pk_effect` INT NOT NULL AUTO_INCREMENT,
-  `status` VARCHAR(256) NULL,
-  `status_chance` INT NULL,
-  `target` VARCHAR(256) NULL,
-  `description` VARCHAR(3000) NULL,
-  `short_description` VARCHAR(512) NULL,
-  `effect` VARCHAR(1024) NULL,
-  `crit_rate` INT NULL,
-  `drain` FLOAT NULL,
-  `flinch_chance` FLOAT NULL,
-  `max_hits` INT NULL,
-  `min_hits` INT NULL,
-  `min_turns` INT NULL,
-  `max_turns` INT NULL,
-  `stat_chance` FLOAT NULL,
-  `sound` TINYINT NULL,
-  `break_screens` TINYINT NULL,
-  `substitute_bypass` TINYINT NULL,
-  `stat_changes` VARCHAR(256) NULL,
-  `healing` FLOAT NULL,
-  PRIMARY KEY (`pk_effect`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `pokemon`.`ability`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `pokemon`.`ability` ;
@@ -93,14 +63,7 @@ CREATE TABLE IF NOT EXISTS `pokemon`.`ability` (
   `pk_ability` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(256) NOT NULL,
   `description` VARCHAR(1024) NULL,
-  `fk_effect` INT NULL,
-  PRIMARY KEY (`pk_ability`),
-  INDEX `fk_ability_effect1_idx` (`fk_effect` ASC) VISIBLE,
-  CONSTRAINT `fk_ability_effect1`
-    FOREIGN KEY (`fk_effect`)
-    REFERENCES `pokemon`.`effect` (`pk_effect`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`pk_ability`))
 ENGINE = InnoDB;
 
 
@@ -130,18 +93,11 @@ CREATE TABLE IF NOT EXISTS `pokemon`.`stats` (
   `speed` INT NOT NULL,
   `special` INT NULL,
   `fk_stats_type` INT NULL,
-  `fk_effect` INT NULL,
   PRIMARY KEY (`pk_stats`),
   INDEX `fk_stats_stats_type1_idx` (`fk_stats_type` ASC) VISIBLE,
-  INDEX `fk_stats_effect1_idx` (`fk_effect` ASC) VISIBLE,
   CONSTRAINT `fk_stats_stats_type1`
     FOREIGN KEY (`fk_stats_type`)
     REFERENCES `pokemon`.`stats_type` (`pk_stats_type`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_stats_effect1`
-    FOREIGN KEY (`fk_effect`)
-    REFERENCES `pokemon`.`effect` (`pk_effect`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -171,14 +127,7 @@ CREATE TABLE IF NOT EXISTS `pokemon`.`item` (
   `pk_item` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(256) NOT NULL,
   `description` VARCHAR(1024) NULL,
-  `fk_effect` INT NULL,
-  PRIMARY KEY (`pk_item`),
-  INDEX `fk_item_effect1_idx` (`fk_effect` ASC) VISIBLE,
-  CONSTRAINT `fk_item_effect1`
-    FOREIGN KEY (`fk_effect`)
-    REFERENCES `pokemon`.`effect` (`pk_effect`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`pk_item`))
 ENGINE = InnoDB;
 
 
@@ -366,31 +315,32 @@ DROP TABLE IF EXISTS `pokemon`.`move` ;
 
 CREATE TABLE IF NOT EXISTS `pokemon`.`move` (
   `pk_move` INT NOT NULL AUTO_INCREMENT,
-  `fk_generation` INT NOT NULL,
   `fk_type` INT NOT NULL,
-  `fk_effect` INT NULL,
+  `fk_generation` INT NOT NULL,
   `name` VARCHAR(128) NOT NULL,
   `power` INT NULL,
   `accuracy` INT NULL,
   `category` VARCHAR(45) NOT NULL,
   `power_points` INT NOT NULL,
+  `target` VARCHAR(45) NULL,
+  `description` VARCHAR(3000) NULL,
+  `short_description` VARCHAR(512) NULL,
   `priority` INT NOT NULL,
-  `contact` TINYINT NULL,
-  `protect` TINYINT NULL,
-  `kings_rock` TINYINT NULL,
-  `snatch` TINYINT NULL,
+  `crit_rate` INT NULL,
+  `drain` FLOAT NULL,
+  `flinch_chance` TINYINT NULL,
+  `max_hits` INT NULL,
+  `min_hits` INT NULL,
+  `max_turns` INT NULL,
+  `min_turns` INT NULL,
+  `healing` FLOAT NULL,
+  `recoil` FLOAT NULL,
   PRIMARY KEY (`pk_move`),
   INDEX `fk_move_type1_idx` (`fk_type` ASC) VISIBLE,
-  INDEX `fk_move_effect1_idx` (`fk_effect` ASC) VISIBLE,
   INDEX `fk_move_generation1_idx` (`fk_generation` ASC) VISIBLE,
   CONSTRAINT `fk_move_type1`
     FOREIGN KEY (`fk_type`)
     REFERENCES `pokemon`.`type` (`pk_type`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_move_effect1`
-    FOREIGN KEY (`fk_effect`)
-    REFERENCES `pokemon`.`effect` (`pk_effect`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_move_generation1`
@@ -629,6 +579,118 @@ CREATE TABLE IF NOT EXISTS `pokemon`.`form_learned_moves` (
   CONSTRAINT `fk_form_learned_moves_move1`
     FOREIGN KEY (`fk_move`)
     REFERENCES `pokemon`.`move` (`pk_move`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pokemon`.`move_version`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pokemon`.`move_version` ;
+
+CREATE TABLE IF NOT EXISTS `pokemon`.`move_version` (
+  `pk_move_version` INT NOT NULL AUTO_INCREMENT,
+  `fk_move` INT NULL,
+  `name` VARCHAR(128) NULL,
+  `fk_type` INT NULL,
+  `power` INT NULL,
+  `accuracy` INT NULL,
+  `power_points` INT NULL,
+  `fk_generation` INT NOT NULL,
+  PRIMARY KEY (`pk_move_version`),
+  INDEX `fk_move_version_type1_idx` (`fk_type` ASC) VISIBLE,
+  INDEX `fk_move_version_generation1_idx` (`fk_generation` ASC) VISIBLE,
+  INDEX `fk_move_version_move1_idx` (`fk_move` ASC) VISIBLE,
+  CONSTRAINT `fk_move_version_type1`
+    FOREIGN KEY (`fk_type`)
+    REFERENCES `pokemon`.`type` (`pk_type`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_move_version_generation1`
+    FOREIGN KEY (`fk_generation`)
+    REFERENCES `pokemon`.`generation` (`pk_generation`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_move_version_move1`
+    FOREIGN KEY (`fk_move`)
+    REFERENCES `pokemon`.`move` (`pk_move`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pokemon`.`move_effect`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pokemon`.`move_effect` ;
+
+CREATE TABLE IF NOT EXISTS `pokemon`.`move_effect` (
+  `pk_move_effect` INT NOT NULL AUTO_INCREMENT,
+  `effect` VARCHAR(45) NULL,
+  `effect_chance` FLOAT NULL,
+  `value` INT NULL,
+  PRIMARY KEY (`pk_move_effect`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pokemon`.`move_has_move_effect`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pokemon`.`move_has_move_effect` ;
+
+CREATE TABLE IF NOT EXISTS `pokemon`.`move_has_move_effect` (
+  `pk_move_has_move_effect` INT NOT NULL AUTO_INCREMENT,
+  `fk_move` INT NOT NULL,
+  `fk_move_effect` INT NOT NULL,
+  INDEX `fk_move_has_move_effect_move_effect1_idx` (`fk_move_effect` ASC) VISIBLE,
+  INDEX `fk_move_has_move_effect_move1_idx` (`fk_move` ASC) VISIBLE,
+  PRIMARY KEY (`pk_move_has_move_effect`),
+  CONSTRAINT `fk_move_has_move_effect_move1`
+    FOREIGN KEY (`fk_move`)
+    REFERENCES `pokemon`.`move` (`pk_move`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_move_has_move_effect_move_effect1`
+    FOREIGN KEY (`fk_move_effect`)
+    REFERENCES `pokemon`.`move_effect` (`pk_move_effect`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pokemon`.`flag`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pokemon`.`flag` ;
+
+CREATE TABLE IF NOT EXISTS `pokemon`.`flag` (
+  `pk_flag` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(50) NULL,
+  PRIMARY KEY (`pk_flag`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pokemon`.`move_has_flag`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pokemon`.`move_has_flag` ;
+
+CREATE TABLE IF NOT EXISTS `pokemon`.`move_has_flag` (
+  `pk_move_has_flag` INT NOT NULL AUTO_INCREMENT,
+  `fk_move` INT NOT NULL,
+  `fk_flag` INT NOT NULL,
+  PRIMARY KEY (`pk_move_has_flag`),
+  INDEX `fk_move_has_flag_flag1_idx` (`fk_flag` ASC) VISIBLE,
+  INDEX `fk_move_has_flag_move1_idx` (`fk_move` ASC) VISIBLE,
+  CONSTRAINT `fk_move_has_flag_move1`
+    FOREIGN KEY (`fk_move`)
+    REFERENCES `pokemon`.`move` (`pk_move`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_move_has_flag_flag1`
+    FOREIGN KEY (`fk_flag`)
+    REFERENCES `pokemon`.`flag` (`pk_flag`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

@@ -93,10 +93,3 @@ def get_type_pk_by_name(cur, name):
     pk_type = result[0]
     
     return pk_type
-
-def get_pk_by_name(cur, entity, name):
-    cur.execute(f"SELECT pk_{entity} FROM pokemon.{entity} WHERE name = %s", (name,))
-    result = cur.fetchone()
-    pk_entity = result[0]
-    
-    return pk_entity

@@ -7,7 +7,7 @@ This project aims to represent the Pokémon world in a scalable SQL database tha
 The database should be able to answer questions such as these:
 
     • Can Mewtwo learn Psystrike in Gen IV?
-    • Which game was the last to feature less than 16 types?
+    • Which game was the last one to feature less than 16 types?
     • Which moves can a specific Pokémon learn in a given generation or game.
     • Is this specific team legal in Gen VI?
     • Can Scizor learn Bullet Punch in Diamond and Pearl?
@@ -19,29 +19,43 @@ The database, however, will not be able to answer this kind of questions:
 
 Later, this could be used to create applications such as a Pokémon damage calculator, a battle simulator, an application where you can store your teams according to their generation...
 
+## The design 
+
+The design is changing as the database is populated to better adapt to the extracted data and to make the design cleaner. Since the database has a lot of tables, the most important details are explained below:
+
+- I found three tables to be enough for modeling Pokémon. A Pokémon species may have multiple forms and a Pokémon instance is needed to deal with Pokémon teams, since it's likely that you will need more than one instance of the same Pokémon in the same form. For instance, you may have two teams, with a different Rotom-Wash each. Stats are in a separate table to allow multiple stats sets to be associated with a Pokémon, since some Pokémon stats have changed in recent generations.
+
+- The table form_learned_moves has proven to be one of the most complex tables in the database, but its complexity is warranted. It's responsible for storing which moves are learned by each Pokémon in each game/version group and, in turn, in each generation. This was deemed necessary because some moves may be added to the movepool, and some of them may be removed from it, in each generation and version group.
+
+- Moves have a lot of information to store, so they are the entity with the highest number of tables. Needed to store different versions and effects, because moves may have more than one effect (for example, increasing more than one stat)
+
+- Generations is vital to the database becaause it allows it to store different versions of hings like base stats, move versions...
+
+The design is evolving as I populate it to better reflect the domain and adjust it to the scope of the project.
+
 ## State of development
 
-Successfully retrieved generations, types, Pokémon, which types belong to which generations, moves and the moves each Pokémon is able to learn in each generation, along with the corresponding learning method. Also, used web scraping to obtain the base special stat value for each Gen I Pokémon.
+Successfully retrieved generations, types, Pokémon, which types belong to which generations, moves and the moves each Pokémon is able to learn in each generation, along with the corresponding learning method. Also, used web scraping to obtain the base special stat value for each Gen I Pokémon. The latest addition was the typing and base stats change data, because some Pokémon's typing or base stats changed in a generational transition.
 
-Right now, the database can answer questions such as when does a specific Pokémon learn a given move or by which method. Via the learned moves, it can be known the moves featured in a specific generation.
+Right now, the database can answer questions such as when does a specific Pokémon learn a given move or by which method. Via the learned moves, it can be known the moves featured in a specific generation. It also includes information about the Pokémon typing and their base stats changes across multiple generations when appropriate. For example: Magnemite's and Clefable's typing changed in Generation II and Generation VI, respectively.
+
+It also includes some information about how moves have changed over time (see implementation notes) and some flags. The flags are useful to store specific information that goes beyond basic parameters like power or accuracy.
 
 ## Acomplished tasks in the last commit
 
-    • Making sure no potentially troublesome null values are stored in the database. 
-    Mainly moves metadata. 
-    • Added the base special stat for the 151 Pokémon featured in the first generation. 
-    The base special stat for Pokémon in Gen II onwards is null because it is really undefined.
+    • Pokémon stat changes from one generation to another have been added. The special stat,
+    from Gen I was added in the previous commit.
+    • Pokémon type changes were also added. 
+    • Move versioning. Keeping track of different move versions across multiple generations and
+    adding flags that complement the moves' information.
+
 
 ## To Do
 
     • Create a small script to run both Pokémon.sql and views.sql.
-    • Right now, the only stats featured for each Pokémon are the current ones. Manage how they have 
-    changed across generations.
     • Insert the Pokémon gender ratios.
     • Insert whether or not the forms are switchable in combat. For exmaple, Rotom cannot change forms 
     in the middle of combat, but Meloetta and Darmanitan both can.
-    • Modify the database so that it includes all the moves metadata. 
-    There are some specific fields missing.
     • Insert abilities and how some abilities themselves and their availability have changed 
     across generations.
     • Insert items and their availability across generations.
@@ -49,10 +63,12 @@ Right now, the database can answer questions such as when does a specific Pokém
 
 ## Implementation notes
 
-Pokémon teams and trainers are not present in the database right now, but they will be. Right now, the focus is on modeling the different Pokémon species, forms, moves... 
+Pokémon teams and trainers are not present in the database right now, but they will be. Right now, the focus is on modeling the different Pokémon species, forms, moves... correctly to have a solid foundation. The same can be said about Z-Moves, which are absent from the main data source, and teratypes. Megaevolutions are an exception because they are more readily available.
 
-I found three tables to be enough for modeling Pokémon. A Pokémon species may have multiple forms and a Pokémon instance is needed to deal with Pokémon teams, since it's likely that you will need more than one instance of the same Pokémon in the same form. For instance, you may have two teams, with a different Rotom-Wash each. Stats are in a separate table to allow multiple stats sets to be associated with a Pokémon, since some Pokémon stats have changed in recent generations.
+The special stat was featured in Gen I, but it was replaced in Gen II by the special attack and special defense stats. Web scraping was used to retrieve its value for each Gen I Pokémon. Exceptions, like the Pokémon whose type or stats changed were dealt with manually because information about those changes isn't as readily available as the special stat.
 
-The table form_learned_moves has proven to be one of the most complex tables in the database, but its complexity is warranted. It's responsible for storing which moves are learned by each Pokémon in each game/version group and, in turn, in each generation. This was deemed necessary because some moves may be added to the movepool, and some of them may be removed from it, in each generation and version group.
+Move versioning was introduced, but the versions of each effect were not present in the resources I extracted the information from, so the database only contains the information I could automatically extract. It would need case-by-case adjustments because that information is not missing, but rather incomplete. I will add fixes as I come across them.
+
+There are flags associated with each move, and they are used to register some key information such as if the move will always crit or if the move is affected by Protect. They were extracted from Pokémon Showdown's data and thus, some of them were not included because they are specific to the Showdown implementation and not that relevant to this project.
 
 Initially, I thought that it would be a good idea to generate the .sql scripts necessary to populate the database, but it soon proved to be extremely inefficient. That's why they are included in the .gitignore file. Same goes for the .bat files, since I will no longer be needing to develop a script that executes the .sql scripts in the correct order. This will be done using the MySQL Python library. The code is left there for completeness and development purposes, they let me experiment with bash scripts, even though they are not efficient in this particular scenario.

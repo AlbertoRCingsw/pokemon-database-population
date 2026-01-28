@@ -10,10 +10,14 @@ from data_generation import pokemon_data
 from data_generation import moves_data
 from data_generation import moves_by_pokemon
 from data_generation import pokemon_special_stat
+from data_generation import stat_type_changes
+from data_generation import test_move_data
 
 # Open connection to the database
 conn = db.connect_to_db()
 cur = conn.cursor()
+
+showdown_url = 'https://play.pokemonshowdown.com/data/moves.json'
 
 # Creates the scripts directory and the empty scripts
 names = ['type', 'generation', 'type_generation_relationship', 'version_group', 'pokemon', 'move', 'learned_moves']
@@ -52,7 +56,7 @@ for generation_number in range(1, upper_generations_limit):
 
 # Inserts the moves
 for generation_number in range(1, upper_generations_limit):
-    moves_data.insert_moves(cur, moves_script, generation_number)
+    test_move_data.insert_moves(cur, generation_number, showdown_url)
 
 # Insert the relationship form_learned_moves
 # It represents the move learned by the pokemon in each generation
@@ -62,6 +66,8 @@ for generation_number in range(1, upper_generations_limit):
 db.commit_data(conn)
 
 pokemon_special_stat.insert_special_stat(cur)
+
+stat_type_changes.stat_changes(cur)
 
 # Closes connection to the database
 db.close_connection_to_db(conn, cur)

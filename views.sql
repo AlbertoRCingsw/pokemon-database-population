@@ -11,7 +11,8 @@ SELECT ps.name AS species_name, f.name as form_name,
        bs.base_special AS special,
        bs.base_special_attack AS special_attack,
        bs.base_special_defense AS special_defense,
-       bs.base_speed AS speed
+       bs.base_speed AS speed,
+       bs.fk_generation
 FROM pokemon.form f, pokemon.base_stats bs, pokemon.pokemon_species ps
 WHERE f.pk_form = bs.fk_form AND
 	  ps.pk_pokemon_species = f.fk_pokemon_species
@@ -31,3 +32,10 @@ WHERE f.pk_form = trio.fk_form AND
 	  m.pk_move = trio.fk_move AND
       vgroup.pk_version_group = trio.fk_version_group AND
       vgroup.fk_generation = gen.pk_generation;
+
+UPDATE pokemon.move_version SET fk_generation = 9 WHERE pk_move_version = 165;
+INSERt INTO pokemon.move_version (fk_new_move, name, fk_type, power, accuracy, power_points, fk_generation) VALUES (1044, 'recover', 1, 0, 0, 10, 4);
+
+UPDATE pokemon.move_version SET power = 120 WHERE pk_move_version = 88
+
+UPDATE pokemon.move m SET m.min_turns = 1, m.max_turns = 1 WHERE m.name = 'toxic' 

@@ -73,11 +73,11 @@ VALUES (7, 1, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('rattata-alola', False, 7);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (30, 56, 35, 25, 35, 72, 1, 8);
+VALUES (30, 56, 35, 25, 35, 72, 7, 8);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (8, 17, 1);
+VALUES (8, 17, 7);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (8, 1, 1);
+VALUES (8, 1, 7);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('spearow', 21);
@@ -111,11 +111,11 @@ VALUES (11, 5, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('sandshrew-alola', False, 10);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (50, 75, 90, 10, 35, 40, 1, 12);
+VALUES (50, 75, 90, 10, 35, 40, 7, 12);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (12, 15, 1);
+VALUES (12, 15, 7);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (12, 9, 1);
+VALUES (12, 9, 7);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('nidoran-f', 29);
@@ -147,9 +147,9 @@ VALUES (15, 10, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('vulpix-alola', False, 13);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (38, 41, 40, 50, 65, 65, 1, 16);
+VALUES (38, 41, 40, 50, 65, 65, 7, 16);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (16, 15, 1);
+VALUES (16, 15, 7);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('zubat', 41);
@@ -207,11 +207,11 @@ VALUES (21, 5, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('diglett-alola', False, 18);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (10, 55, 30, 35, 45, 90, 1, 22);
+VALUES (10, 55, 30, 35, 45, 90, 7, 22);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (22, 5, 1);
+VALUES (22, 5, 7);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (22, 9, 1);
+VALUES (22, 9, 7);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('meowth', 52);
@@ -225,23 +225,23 @@ VALUES (23, 1, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('meowth-alola', False, 19);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (40, 35, 35, 50, 40, 90, 1, 24);
+VALUES (40, 35, 35, 50, 40, 90, 7, 24);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (24, 17, 1);
+VALUES (24, 17, 7);
 
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('meowth-galar', False, 19);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (50, 65, 55, 40, 40, 40, 1, 25);
+VALUES (50, 65, 55, 40, 40, 40, 8, 25);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (25, 9, 1);
+VALUES (25, 9, 8);
 
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('meowth-gmax', False, 19);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (40, 45, 35, 40, 40, 90, 1, 26);
+VALUES (40, 45, 35, 40, 40, 90, 8, 26);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (26, 1, 1);
+VALUES (26, 1, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('psyduck', 54);
@@ -273,11 +273,11 @@ VALUES (29, 10, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('growlithe-hisui', False, 22);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (60, 75, 45, 65, 50, 55, 1, 30);
+VALUES (60, 75, 45, 65, 50, 55, 8, 30);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (30, 10, 1);
+VALUES (30, 10, 8);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (30, 6, 1);
+VALUES (30, 6, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('poliwag', 60);
@@ -342,11 +342,11 @@ VALUES (36, 5, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('geodude-alola', False, 28);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (40, 80, 100, 30, 30, 20, 1, 37);
+VALUES (40, 80, 100, 30, 30, 20, 7, 37);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (37, 6, 1);
+VALUES (37, 6, 7);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (37, 13, 1);
+VALUES (37, 13, 7);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('venusaur', 3);
@@ -362,20 +362,20 @@ VALUES (38, 4, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('venusaur-mega', False, 29);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (80, 100, 123, 122, 120, 80, 1, 39);
+VALUES (80, 100, 123, 122, 120, 80, 6, 39);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (39, 12, 1);
+VALUES (39, 12, 6);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (39, 4, 1);
+VALUES (39, 4, 6);
 
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('venusaur-gmax', False, 29);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (80, 82, 83, 100, 100, 80, 1, 40);
+VALUES (80, 82, 83, 100, 100, 80, 8, 40);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (40, 12, 1);
+VALUES (40, 12, 8);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (40, 4, 1);
+VALUES (40, 4, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('charmeleon', 5);
@@ -400,29 +400,29 @@ VALUES (42, 3, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('charizard-mega-x', False, 31);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (78, 130, 111, 130, 85, 100, 1, 43);
+VALUES (78, 130, 111, 130, 85, 100, 6, 43);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (43, 10, 1);
+VALUES (43, 10, 6);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (43, 16, 1);
+VALUES (43, 16, 6);
 
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('charizard-mega-y', False, 31);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (78, 104, 78, 159, 115, 100, 1, 44);
+VALUES (78, 104, 78, 159, 115, 100, 6, 44);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (44, 10, 1);
+VALUES (44, 10, 6);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (44, 3, 1);
+VALUES (44, 3, 6);
 
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('charizard-gmax', False, 31);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (78, 84, 78, 109, 85, 100, 1, 45);
+VALUES (78, 84, 78, 109, 85, 100, 8, 45);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (45, 10, 1);
+VALUES (45, 10, 8);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (45, 3, 1);
+VALUES (45, 3, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('wartortle', 8);
@@ -445,16 +445,16 @@ VALUES (47, 11, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('blastoise-mega', False, 33);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (79, 103, 120, 135, 115, 78, 1, 48);
+VALUES (79, 103, 120, 135, 115, 78, 6, 48);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (48, 11, 1);
+VALUES (48, 11, 6);
 
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('blastoise-gmax', False, 33);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (79, 83, 100, 85, 105, 78, 1, 49);
+VALUES (79, 83, 100, 85, 105, 78, 8, 49);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (49, 11, 1);
+VALUES (49, 11, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('metapod', 11);
@@ -479,11 +479,11 @@ VALUES (51, 3, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('butterfree-gmax', False, 35);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (60, 45, 50, 90, 80, 70, 1, 52);
+VALUES (60, 45, 50, 90, 80, 70, 8, 52);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (52, 7, 1);
+VALUES (52, 7, 8);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (52, 3, 1);
+VALUES (52, 3, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('kakuna', 14);
@@ -510,11 +510,11 @@ VALUES (54, 4, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('beedrill-mega', False, 37);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (65, 150, 40, 15, 80, 145, 1, 55);
+VALUES (65, 150, 40, 15, 80, 145, 6, 55);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (55, 7, 1);
+VALUES (55, 7, 6);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (55, 4, 1);
+VALUES (55, 4, 6);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('pidgeotto', 17);
@@ -541,11 +541,11 @@ VALUES (57, 3, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('pidgeot-mega', False, 39);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (83, 80, 80, 135, 80, 121, 1, 58);
+VALUES (83, 80, 80, 135, 80, 121, 6, 58);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (58, 1, 1);
+VALUES (58, 1, 6);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (58, 3, 1);
+VALUES (58, 3, 6);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('raticate', 20);
@@ -559,20 +559,20 @@ VALUES (59, 1, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('raticate-alola', False, 40);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (75, 71, 70, 40, 80, 77, 1, 60);
+VALUES (75, 71, 70, 40, 80, 77, 7, 60);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (60, 17, 1);
+VALUES (60, 17, 7);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (60, 1, 1);
+VALUES (60, 1, 7);
 
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('raticate-totem-alola', False, 40);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (75, 71, 70, 40, 80, 77, 1, 61);
+VALUES (75, 71, 70, 40, 80, 77, 7, 61);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (61, 17, 1);
+VALUES (61, 17, 7);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (61, 1, 1);
+VALUES (61, 1, 7);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('fearow', 22);
@@ -683,9 +683,9 @@ VALUES (75, 13, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('pikachu-alola-cap', False, 43);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (35, 55, 40, 50, 50, 90, 1, 76);
+VALUES (35, 55, 40, 50, 50, 90, 7, 76);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (76, 13, 1);
+VALUES (76, 13, 7);
 
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('pikachu-partner-cap', False, 43);
@@ -711,9 +711,9 @@ VALUES (79, 13, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('pikachu-gmax', False, 43);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (35, 55, 40, 50, 50, 90, 1, 80);
+VALUES (35, 55, 40, 50, 50, 90, 8, 80);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (80, 13, 1);
+VALUES (80, 13, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('raichu', 26);
@@ -727,11 +727,11 @@ VALUES (81, 13, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('raichu-alola', False, 44);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (60, 85, 50, 95, 85, 110, 1, 82);
+VALUES (60, 85, 50, 95, 85, 110, 7, 82);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (82, 13, 1);
+VALUES (82, 13, 7);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (82, 14, 1);
+VALUES (82, 14, 7);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('sandslash', 28);
@@ -745,11 +745,11 @@ VALUES (83, 5, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('sandslash-alola', False, 45);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (75, 100, 120, 25, 65, 65, 1, 84);
+VALUES (75, 100, 120, 25, 65, 65, 7, 84);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (84, 15, 1);
+VALUES (84, 15, 7);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (84, 9, 1);
+VALUES (84, 9, 7);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('nidorina', 30);
@@ -821,11 +821,11 @@ VALUES (91, 10, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('ninetales-alola', False, 52);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (73, 67, 75, 81, 100, 109, 1, 92);
+VALUES (73, 67, 75, 81, 100, 109, 7, 92);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (92, 15, 1);
+VALUES (92, 15, 7);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (92, 18, 1);
+VALUES (92, 18, 7);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('jigglypuff', 39);
@@ -916,11 +916,11 @@ VALUES (100, 5, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('dugtrio-alola', False, 60);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (35, 100, 60, 50, 70, 110, 1, 101);
+VALUES (35, 100, 60, 50, 70, 110, 7, 101);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (101, 5, 1);
+VALUES (101, 5, 7);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (101, 9, 1);
+VALUES (101, 9, 7);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('persian', 53);
@@ -934,9 +934,9 @@ VALUES (102, 1, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('persian-alola', False, 61);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (65, 60, 60, 75, 65, 115, 1, 103);
+VALUES (65, 60, 60, 75, 65, 115, 7, 103);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (103, 17, 1);
+VALUES (103, 17, 7);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('golduck', 55);
@@ -968,11 +968,11 @@ VALUES (106, 10, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('arcanine-hisui', False, 64);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (95, 115, 80, 95, 80, 90, 1, 107);
+VALUES (95, 115, 80, 95, 80, 90, 8, 107);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (107, 10, 1);
+VALUES (107, 10, 8);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (107, 6, 1);
+VALUES (107, 6, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('poliwhirl', 61);
@@ -1015,9 +1015,9 @@ VALUES (111, 14, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('alakazam-mega', False, 68);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (55, 50, 65, 175, 105, 150, 1, 112);
+VALUES (55, 50, 65, 175, 105, 150, 6, 112);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (112, 14, 1);
+VALUES (112, 14, 6);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('machoke', 67);
@@ -1040,9 +1040,9 @@ VALUES (114, 2, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('machamp-gmax', False, 70);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (90, 130, 80, 65, 85, 55, 1, 115);
+VALUES (90, 130, 80, 65, 85, 55, 8, 115);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (115, 2, 1);
+VALUES (115, 2, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('weepinbell', 70);
@@ -1091,11 +1091,11 @@ VALUES (119, 5, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('graveler-alola', False, 74);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (55, 95, 115, 45, 45, 35, 1, 120);
+VALUES (55, 95, 115, 45, 45, 35, 7, 120);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (120, 6, 1);
+VALUES (120, 6, 7);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (120, 13, 1);
+VALUES (120, 13, 7);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('ponyta', 77);
@@ -1109,9 +1109,9 @@ VALUES (121, 10, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('ponyta-galar', False, 75);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (50, 85, 55, 65, 65, 90, 1, 122);
+VALUES (50, 85, 55, 65, 65, 90, 8, 122);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (122, 14, 1);
+VALUES (122, 14, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('slowpoke', 79);
@@ -1127,9 +1127,9 @@ VALUES (123, 14, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('slowpoke-galar', False, 76);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (90, 65, 65, 40, 40, 15, 1, 124);
+VALUES (90, 65, 65, 40, 40, 15, 8, 124);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (124, 14, 1);
+VALUES (124, 14, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('magnemite', 81);
@@ -1156,9 +1156,9 @@ VALUES (126, 3, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('farfetchd-galar', False, 78);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (52, 95, 55, 58, 62, 55, 1, 127);
+VALUES (52, 95, 55, 58, 62, 55, 8, 127);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (127, 2, 1);
+VALUES (127, 2, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('doduo', 84);
@@ -1192,11 +1192,11 @@ VALUES (130, 4, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('grimer-alola', False, 81);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (80, 80, 50, 40, 50, 25, 1, 131);
+VALUES (80, 80, 50, 40, 50, 25, 7, 131);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (131, 4, 1);
+VALUES (131, 4, 7);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (131, 17, 1);
+VALUES (131, 17, 7);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('shellder', 90);
@@ -1259,11 +1259,11 @@ VALUES (137, 13, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('voltorb-hisui', False, 87);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (40, 30, 50, 55, 55, 100, 1, 138);
+VALUES (40, 30, 50, 55, 55, 100, 8, 138);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (138, 13, 1);
+VALUES (138, 13, 8);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (138, 12, 1);
+VALUES (138, 12, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('exeggcute', 102);
@@ -1335,9 +1335,9 @@ VALUES (145, 1, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('kangaskhan-mega', False, 94);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (105, 125, 100, 60, 100, 100, 1, 146);
+VALUES (105, 125, 100, 60, 100, 100, 6, 146);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (146, 1, 1);
+VALUES (146, 1, 6);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('horsea', 116);
@@ -1389,11 +1389,11 @@ VALUES (151, 7, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('pinsir-mega', False, 99);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (65, 155, 120, 65, 90, 105, 1, 152);
+VALUES (65, 155, 120, 65, 90, 105, 6, 152);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (152, 7, 1);
+VALUES (152, 7, 6);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (152, 3, 1);
+VALUES (152, 3, 6);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('tauros', 128);
@@ -1407,27 +1407,27 @@ VALUES (153, 1, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('tauros-paldea-combat-breed', False, 100);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (75, 110, 105, 30, 70, 100, 1, 154);
+VALUES (75, 110, 105, 30, 70, 100, 9, 154);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (154, 2, 1);
+VALUES (154, 2, 9);
 
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('tauros-paldea-blaze-breed', False, 100);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (75, 110, 105, 30, 70, 100, 1, 155);
+VALUES (75, 110, 105, 30, 70, 100, 9, 155);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (155, 2, 1);
+VALUES (155, 2, 9);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (155, 10, 1);
+VALUES (155, 10, 9);
 
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('tauros-paldea-aqua-breed', False, 100);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (75, 110, 105, 30, 70, 100, 1, 156);
+VALUES (75, 110, 105, 30, 70, 100, 9, 156);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (156, 2, 1);
+VALUES (156, 2, 9);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (156, 11, 1);
+VALUES (156, 11, 9);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('magikarp', 129);
@@ -1452,11 +1452,11 @@ VALUES (158, 15, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('lapras-gmax', False, 102);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (130, 85, 80, 85, 95, 60, 1, 159);
+VALUES (130, 85, 80, 85, 95, 60, 8, 159);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (159, 11, 1);
+VALUES (159, 11, 8);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (159, 15, 1);
+VALUES (159, 15, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('ditto', 132);
@@ -1486,9 +1486,9 @@ VALUES (162, 1, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('eevee-gmax', False, 104);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (55, 55, 50, 45, 65, 55, 1, 163);
+VALUES (55, 55, 50, 45, 65, 55, 8, 163);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (163, 1, 1);
+VALUES (163, 1, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('porygon', 137);
@@ -1535,11 +1535,11 @@ VALUES (167, 3, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('aerodactyl-mega', False, 108);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (80, 135, 85, 70, 95, 150, 1, 168);
+VALUES (80, 135, 85, 70, 95, 150, 6, 168);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (168, 6, 1);
+VALUES (168, 6, 6);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (168, 3, 1);
+VALUES (168, 3, 6);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('articuno', 144);
@@ -1555,11 +1555,11 @@ VALUES (169, 3, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('articuno-galar', False, 109);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (90, 85, 85, 125, 100, 95, 1, 170);
+VALUES (90, 85, 85, 125, 100, 95, 8, 170);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (170, 14, 1);
+VALUES (170, 14, 8);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (170, 3, 1);
+VALUES (170, 3, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('zapdos', 145);
@@ -1575,11 +1575,11 @@ VALUES (171, 3, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('zapdos-galar', False, 110);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (90, 125, 90, 85, 90, 100, 1, 172);
+VALUES (90, 125, 90, 85, 90, 100, 8, 172);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (172, 2, 1);
+VALUES (172, 2, 8);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (172, 3, 1);
+VALUES (172, 3, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('moltres', 146);
@@ -1595,11 +1595,11 @@ VALUES (173, 3, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('moltres-galar', False, 111);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (90, 85, 90, 100, 125, 90, 1, 174);
+VALUES (90, 85, 90, 100, 125, 90, 8, 174);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (174, 17, 1);
+VALUES (174, 17, 8);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (174, 3, 1);
+VALUES (174, 3, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('dratini', 147);
@@ -1622,18 +1622,18 @@ VALUES (176, 14, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('mewtwo-mega-x', False, 113);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (106, 190, 100, 154, 100, 130, 1, 177);
+VALUES (106, 190, 100, 154, 100, 130, 6, 177);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (177, 14, 1);
+VALUES (177, 14, 6);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (177, 2, 1);
+VALUES (177, 2, 6);
 
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('mewtwo-mega-y', False, 113);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (106, 150, 70, 194, 120, 140, 1, 178);
+VALUES (106, 150, 70, 194, 120, 140, 6, 178);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (178, 14, 1);
+VALUES (178, 14, 6);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('rapidash', 78);
@@ -1647,11 +1647,11 @@ VALUES (179, 10, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('rapidash-galar', False, 114);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (65, 100, 70, 80, 80, 105, 1, 180);
+VALUES (65, 100, 70, 80, 80, 105, 8, 180);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (180, 14, 1);
+VALUES (180, 14, 8);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (180, 18, 1);
+VALUES (180, 18, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('slowbro', 80);
@@ -1667,20 +1667,20 @@ VALUES (181, 14, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('slowbro-mega', False, 115);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (95, 75, 180, 130, 80, 30, 1, 182);
+VALUES (95, 75, 180, 130, 80, 30, 6, 182);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (182, 11, 1);
+VALUES (182, 11, 6);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (182, 14, 1);
+VALUES (182, 14, 6);
 
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('slowbro-galar', False, 115);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (95, 100, 95, 100, 70, 30, 1, 183);
+VALUES (95, 100, 95, 100, 70, 30, 8, 183);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (183, 4, 1);
+VALUES (183, 4, 8);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (183, 14, 1);
+VALUES (183, 14, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('magneton', 82);
@@ -1727,11 +1727,11 @@ VALUES (187, 4, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('muk-alola', False, 119);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (105, 105, 75, 65, 100, 50, 1, 188);
+VALUES (105, 105, 75, 65, 100, 50, 7, 188);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (188, 4, 1);
+VALUES (188, 4, 7);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (188, 17, 1);
+VALUES (188, 17, 7);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('cloyster', 91);
@@ -1769,20 +1769,20 @@ VALUES (191, 4, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('gengar-mega', False, 122);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (60, 65, 80, 170, 95, 130, 1, 192);
+VALUES (60, 65, 80, 170, 95, 130, 6, 192);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (192, 8, 1);
+VALUES (192, 8, 6);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (192, 4, 1);
+VALUES (192, 4, 6);
 
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('gengar-gmax', False, 122);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (60, 65, 60, 130, 75, 110, 1, 193);
+VALUES (60, 65, 60, 130, 75, 110, 8, 193);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (193, 8, 1);
+VALUES (193, 8, 8);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (193, 4, 1);
+VALUES (193, 4, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('hypno', 97);
@@ -1805,9 +1805,9 @@ VALUES (195, 11, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('kingler-gmax', False, 124);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (55, 130, 115, 50, 50, 75, 1, 196);
+VALUES (55, 130, 115, 50, 50, 75, 8, 196);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (196, 11, 1);
+VALUES (196, 11, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('electrode', 101);
@@ -1821,11 +1821,11 @@ VALUES (197, 13, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('electrode-hisui', False, 125);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (60, 50, 70, 80, 80, 150, 1, 198);
+VALUES (60, 50, 70, 80, 80, 150, 8, 198);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (198, 13, 1);
+VALUES (198, 13, 8);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (198, 12, 1);
+VALUES (198, 12, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('exeggutor', 103);
@@ -1841,11 +1841,11 @@ VALUES (199, 14, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('exeggutor-alola', False, 126);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (95, 105, 85, 125, 75, 45, 1, 200);
+VALUES (95, 105, 85, 125, 75, 45, 7, 200);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (200, 12, 1);
+VALUES (200, 12, 7);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (200, 16, 1);
+VALUES (200, 16, 7);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('marowak', 105);
@@ -1859,11 +1859,11 @@ VALUES (201, 5, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('marowak-alola', False, 127);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (60, 80, 110, 50, 80, 45, 1, 202);
+VALUES (60, 80, 110, 50, 80, 45, 7, 202);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (202, 10, 1);
+VALUES (202, 10, 7);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (202, 8, 1);
+VALUES (202, 8, 7);
 
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('marowak-totem', False, 127);
@@ -1904,11 +1904,11 @@ VALUES (206, 4, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('weezing-galar', False, 130);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (65, 90, 120, 85, 70, 60, 1, 207);
+VALUES (65, 90, 120, 85, 70, 60, 8, 207);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (207, 4, 1);
+VALUES (207, 4, 8);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (207, 18, 1);
+VALUES (207, 18, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('rhydon', 112);
@@ -1973,11 +1973,11 @@ VALUES (213, 18, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('mr-mime-galar', False, 136);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (50, 65, 65, 90, 90, 100, 1, 214);
+VALUES (50, 65, 65, 90, 90, 100, 8, 214);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (214, 15, 1);
+VALUES (214, 15, 8);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (214, 14, 1);
+VALUES (214, 14, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('jynx', 124);
@@ -2022,11 +2022,11 @@ VALUES (218, 3, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('gyarados-mega', False, 140);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (95, 155, 109, 70, 130, 81, 1, 219);
+VALUES (95, 155, 109, 70, 130, 81, 6, 219);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (219, 11, 1);
+VALUES (219, 11, 6);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (219, 17, 1);
+VALUES (219, 17, 6);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('vaporeon', 134);
@@ -2089,9 +2089,9 @@ VALUES (225, 1, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('snorlax-gmax', False, 146);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (160, 110, 65, 65, 110, 30, 1, 226);
+VALUES (160, 110, 65, 65, 110, 30, 8, 226);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (226, 1, 1);
+VALUES (226, 1, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('dragonair', 148);
@@ -2147,11 +2147,11 @@ VALUES (231, 5, 1);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('golem-alola', False, 151);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (80, 120, 130, 55, 65, 45, 1, 232);
+VALUES (80, 120, 130, 55, 65, 45, 7, 232);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (232, 6, 1);
+VALUES (232, 6, 7);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (232, 13, 1);
+VALUES (232, 13, 7);
 
 
 
@@ -2350,11 +2350,11 @@ VALUES (251, 5, 2);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('wooper-paldea', False, 170);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (55, 45, 45, 25, 25, 15, 2, 252);
+VALUES (55, 45, 45, 25, 25, 15, 9, 252);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (252, 4, 2);
+VALUES (252, 4, 9);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (252, 5, 2);
+VALUES (252, 5, 9);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('murkrow', 198);
@@ -2448,11 +2448,11 @@ VALUES (261, 4, 2);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('qwilfish-hisui', False, 179);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (65, 95, 85, 55, 55, 85, 2, 262);
+VALUES (65, 95, 85, 55, 55, 85, 8, 262);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (262, 17, 2);
+VALUES (262, 17, 8);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (262, 4, 2);
+VALUES (262, 4, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('shuckle', 213);
@@ -2479,11 +2479,11 @@ VALUES (264, 2, 2);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('heracross-mega', False, 181);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (80, 185, 115, 40, 105, 75, 2, 265);
+VALUES (80, 185, 115, 40, 105, 75, 6, 265);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (265, 7, 2);
+VALUES (265, 7, 6);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (265, 2, 2);
+VALUES (265, 2, 6);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('sneasel', 215);
@@ -2499,11 +2499,11 @@ VALUES (266, 15, 2);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('sneasel-hisui', False, 182);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (55, 95, 55, 35, 75, 115, 2, 267);
+VALUES (55, 95, 55, 35, 75, 115, 8, 267);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (267, 2, 2);
+VALUES (267, 2, 8);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (267, 4, 2);
+VALUES (267, 4, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('teddiursa', 216);
@@ -2548,9 +2548,9 @@ VALUES (271, 6, 2);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('corsola-galar', False, 186);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (60, 55, 100, 65, 100, 30, 2, 272);
+VALUES (60, 55, 100, 65, 100, 30, 8, 272);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (272, 8, 2);
+VALUES (272, 8, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('remoraid', 223);
@@ -2602,11 +2602,11 @@ VALUES (277, 10, 2);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('typhlosion-hisui', False, 191);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (73, 84, 78, 119, 85, 95, 2, 278);
+VALUES (73, 84, 78, 119, 85, 95, 8, 278);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (278, 10, 2);
+VALUES (278, 10, 8);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (278, 8, 2);
+VALUES (278, 8, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('croconaw', 159);
@@ -2733,11 +2733,11 @@ VALUES (290, 13, 2);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('ampharos-mega', False, 203);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (90, 95, 105, 165, 110, 45, 2, 291);
+VALUES (90, 95, 105, 165, 110, 45, 6, 291);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (291, 13, 2);
+VALUES (291, 13, 6);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (291, 16, 2);
+VALUES (291, 16, 6);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('bellossom', 182);
@@ -2862,11 +2862,11 @@ VALUES (303, 14, 2);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('slowking-galar', False, 215);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (95, 65, 80, 110, 110, 30, 2, 304);
+VALUES (95, 65, 80, 110, 110, 30, 8, 304);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (304, 4, 2);
+VALUES (304, 4, 8);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (304, 14, 2);
+VALUES (304, 14, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('wobbuffet', 202);
@@ -2902,11 +2902,11 @@ VALUES (307, 5, 2);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('steelix-mega', False, 218);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (75, 125, 230, 55, 95, 30, 2, 308);
+VALUES (75, 125, 230, 55, 95, 30, 6, 308);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (308, 9, 2);
+VALUES (308, 9, 6);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (308, 5, 2);
+VALUES (308, 5, 6);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('granbull', 210);
@@ -2931,11 +2931,11 @@ VALUES (310, 9, 2);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('scizor-mega', False, 220);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (70, 150, 140, 65, 100, 75, 2, 311);
+VALUES (70, 150, 140, 65, 100, 75, 6, 311);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (311, 7, 2);
+VALUES (311, 7, 6);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (311, 9, 2);
+VALUES (311, 9, 6);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('ursaring', 217);
@@ -3158,11 +3158,11 @@ VALUES (333, 10, 2);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('houndoom-mega', False, 242);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (75, 90, 90, 140, 90, 115, 2, 334);
+VALUES (75, 90, 90, 140, 90, 115, 6, 334);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (334, 17, 2);
+VALUES (334, 17, 6);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (334, 10, 2);
+VALUES (334, 10, 6);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('kingdra', 230);
@@ -3236,11 +3236,11 @@ VALUES (341, 17, 2);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('tyranitar-mega', False, 249);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (100, 164, 150, 95, 120, 71, 2, 342);
+VALUES (100, 164, 150, 95, 120, 71, 6, 342);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (342, 6, 2);
+VALUES (342, 6, 6);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (342, 17, 2);
+VALUES (342, 17, 6);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('bayleef', 153);
@@ -3315,11 +3315,11 @@ VALUES (349, 1, 3);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('zigzagoon-galar', False, 256);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (38, 30, 41, 30, 41, 60, 3, 350);
+VALUES (38, 30, 41, 30, 41, 60, 8, 350);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (350, 17, 3);
+VALUES (350, 17, 8);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (350, 1, 3);
+VALUES (350, 1, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('wurmple', 265);
@@ -3491,11 +3491,11 @@ VALUES (367, 12, 3);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('sceptile-mega', False, 273);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (70, 110, 75, 145, 85, 145, 3, 368);
+VALUES (70, 110, 75, 145, 85, 145, 6, 368);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (368, 12, 3);
+VALUES (368, 12, 6);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (368, 16, 3);
+VALUES (368, 16, 6);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('combusken', 256);
@@ -3522,11 +3522,11 @@ VALUES (370, 2, 3);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('blaziken-mega', False, 275);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (80, 160, 80, 130, 80, 100, 3, 371);
+VALUES (80, 160, 80, 130, 80, 100, 6, 371);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (371, 10, 3);
+VALUES (371, 10, 6);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (371, 2, 3);
+VALUES (371, 2, 6);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('marshtomp', 259);
@@ -3553,11 +3553,11 @@ VALUES (373, 5, 3);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('swampert-mega', False, 277);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (100, 150, 110, 95, 110, 70, 3, 374);
+VALUES (100, 150, 110, 95, 110, 70, 6, 374);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (374, 11, 3);
+VALUES (374, 11, 6);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (374, 5, 3);
+VALUES (374, 5, 6);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('mightyena', 262);
@@ -3580,11 +3580,11 @@ VALUES (376, 1, 3);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('linoone-galar', False, 279);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (78, 70, 61, 50, 61, 100, 3, 377);
+VALUES (78, 70, 61, 50, 61, 100, 8, 377);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (377, 17, 3);
+VALUES (377, 17, 8);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (377, 1, 3);
+VALUES (377, 1, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('silcoon', 266);
@@ -3717,11 +3717,11 @@ VALUES (389, 18, 3);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('gardevoir-mega', False, 291);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (68, 85, 65, 165, 135, 100, 3, 390);
+VALUES (68, 85, 65, 165, 135, 100, 6, 390);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (390, 14, 3);
+VALUES (390, 14, 6);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (390, 18, 3);
+VALUES (390, 18, 6);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('masquerain', 284);
@@ -3826,11 +3826,11 @@ VALUES (400, 8, 3);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('sableye-mega', False, 301);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (50, 85, 125, 85, 115, 20, 3, 401);
+VALUES (50, 85, 125, 85, 115, 20, 6, 401);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (401, 17, 3);
+VALUES (401, 17, 6);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (401, 8, 3);
+VALUES (401, 8, 6);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('mawile', 303);
@@ -3846,11 +3846,11 @@ VALUES (402, 18, 3);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('mawile-mega', False, 302);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (50, 105, 125, 55, 95, 50, 3, 403);
+VALUES (50, 105, 125, 55, 95, 50, 6, 403);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (403, 9, 3);
+VALUES (403, 9, 6);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (403, 18, 3);
+VALUES (403, 18, 6);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('aron', 304);
@@ -4197,9 +4197,9 @@ VALUES (439, 17, 3);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('absol-mega', False, 335);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (65, 150, 60, 115, 60, 115, 3, 440);
+VALUES (65, 150, 60, 115, 60, 115, 6, 440);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (440, 17, 3);
+VALUES (440, 17, 6);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('wynaut', 360);
@@ -4304,9 +4304,9 @@ VALUES (450, 6, 3);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('aggron-mega', False, 345);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (70, 140, 230, 60, 80, 50, 3, 451);
+VALUES (70, 140, 230, 60, 80, 50, 6, 451);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (451, 9, 3);
+VALUES (451, 9, 6);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('medicham', 308);
@@ -4322,11 +4322,11 @@ VALUES (452, 14, 3);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('medicham-mega', False, 346);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (60, 100, 85, 80, 85, 100, 3, 453);
+VALUES (60, 100, 85, 80, 85, 100, 6, 453);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (453, 2, 3);
+VALUES (453, 2, 6);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (453, 14, 3);
+VALUES (453, 14, 6);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('manectric', 310);
@@ -4340,9 +4340,9 @@ VALUES (454, 13, 3);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('manectric-mega', False, 347);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (70, 75, 80, 135, 80, 135, 3, 455);
+VALUES (70, 75, 80, 135, 80, 135, 6, 455);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (455, 13, 3);
+VALUES (455, 13, 6);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('roselia', 315);
@@ -4378,11 +4378,11 @@ VALUES (458, 17, 3);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('sharpedo-mega', False, 350);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (70, 140, 70, 110, 65, 105, 3, 459);
+VALUES (70, 140, 70, 110, 65, 105, 6, 459);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (459, 11, 3);
+VALUES (459, 11, 6);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (459, 17, 3);
+VALUES (459, 17, 6);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('wailord', 321);
@@ -4407,11 +4407,11 @@ VALUES (461, 5, 3);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('camerupt-mega', False, 352);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (70, 120, 100, 145, 105, 20, 3, 462);
+VALUES (70, 120, 100, 145, 105, 20, 6, 462);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (462, 10, 3);
+VALUES (462, 10, 6);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (462, 5, 3);
+VALUES (462, 5, 6);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('grumpig', 326);
@@ -4469,11 +4469,11 @@ VALUES (467, 3, 3);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('altaria-mega', False, 357);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (75, 110, 110, 110, 105, 80, 3, 468);
+VALUES (75, 110, 110, 110, 105, 80, 6, 468);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (468, 16, 3);
+VALUES (468, 16, 6);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (468, 18, 3);
+VALUES (468, 18, 6);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('whiscash', 340);
@@ -4551,9 +4551,9 @@ VALUES (475, 8, 3);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('banette-mega', False, 364);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (64, 165, 75, 93, 83, 75, 3, 476);
+VALUES (64, 165, 75, 93, 83, 75, 6, 476);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (476, 8, 3);
+VALUES (476, 8, 6);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('dusclops', 356);
@@ -4585,9 +4585,9 @@ VALUES (479, 15, 3);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('glalie-mega', False, 367);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (80, 120, 80, 120, 80, 100, 3, 480);
+VALUES (80, 120, 80, 120, 80, 100, 6, 480);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (480, 15, 3);
+VALUES (480, 15, 6);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('sealeo', 364);
@@ -4652,11 +4652,11 @@ VALUES (486, 3, 3);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('salamence-mega', False, 373);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (95, 145, 130, 120, 90, 120, 3, 487);
+VALUES (95, 145, 130, 120, 90, 120, 6, 487);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (487, 16, 3);
+VALUES (487, 16, 6);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (487, 3, 3);
+VALUES (487, 3, 6);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('metang', 375);
@@ -4710,11 +4710,11 @@ VALUES (492, 14, 3);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('latias-mega', False, 378);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (80, 100, 120, 140, 150, 110, 3, 493);
+VALUES (80, 100, 120, 140, 150, 110, 6, 493);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (493, 16, 3);
+VALUES (493, 16, 6);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (493, 14, 3);
+VALUES (493, 14, 6);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('latios', 381);
@@ -4730,11 +4730,11 @@ VALUES (494, 14, 3);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('latios-mega', False, 379);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (80, 130, 100, 160, 120, 110, 3, 495);
+VALUES (80, 130, 100, 160, 120, 110, 6, 495);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (495, 16, 3);
+VALUES (495, 16, 6);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (495, 14, 3);
+VALUES (495, 14, 6);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('kyogre', 382);
@@ -4784,11 +4784,11 @@ VALUES (500, 3, 3);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('rayquaza-mega', False, 382);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (105, 180, 100, 180, 100, 115, 3, 501);
+VALUES (105, 180, 100, 180, 100, 115, 6, 501);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (501, 16, 3);
+VALUES (501, 16, 6);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (501, 3, 3);
+VALUES (501, 3, 6);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('jirachi', 385);
@@ -4854,11 +4854,11 @@ VALUES (508, 14, 3);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('metagross-mega', False, 386);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (80, 145, 150, 105, 110, 110, 3, 509);
+VALUES (80, 145, 150, 105, 110, 110, 6, 509);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (509, 9, 3);
+VALUES (509, 9, 6);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (509, 14, 3);
+VALUES (509, 14, 6);
 
 
 
@@ -5431,11 +5431,11 @@ VALUES (566, 1, 4);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('lopunny-mega', False, 441);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (65, 136, 94, 54, 96, 135, 4, 567);
+VALUES (65, 136, 94, 54, 96, 135, 6, 567);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (567, 1, 4);
+VALUES (567, 1, 6);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (567, 2, 4);
+VALUES (567, 2, 6);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('mismagius', 429);
@@ -5513,11 +5513,11 @@ VALUES (574, 5, 4);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('garchomp-mega', False, 448);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (108, 170, 115, 120, 95, 92, 4, 575);
+VALUES (108, 170, 115, 120, 95, 92, 6, 575);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (575, 16, 4);
+VALUES (575, 16, 6);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (575, 5, 4);
+VALUES (575, 5, 6);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('lucario', 448);
@@ -5533,11 +5533,11 @@ VALUES (576, 9, 4);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('lucario-mega', False, 449);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (70, 145, 88, 140, 70, 112, 4, 577);
+VALUES (70, 145, 88, 140, 70, 112, 6, 577);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (577, 2, 4);
+VALUES (577, 2, 6);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (577, 9, 4);
+VALUES (577, 9, 6);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('hippowdon', 450);
@@ -5848,11 +5848,11 @@ VALUES (609, 15, 4);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('abomasnow-mega', False, 472);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (90, 132, 105, 132, 105, 30, 4, 610);
+VALUES (90, 132, 105, 132, 105, 30, 6, 610);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (610, 12, 4);
+VALUES (610, 12, 6);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (610, 15, 4);
+VALUES (610, 15, 6);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('weavile', 461);
@@ -5997,11 +5997,11 @@ VALUES (624, 2, 4);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('gallade-mega', False, 486);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (68, 165, 95, 65, 115, 110, 4, 625);
+VALUES (68, 165, 95, 65, 115, 110, 6, 625);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (625, 14, 4);
+VALUES (625, 14, 6);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (625, 2, 4);
+VALUES (625, 2, 6);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('probopass', 476);
@@ -6245,11 +6245,11 @@ VALUES (649, 1, 5);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('audino-mega', False, 510);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (103, 60, 126, 80, 126, 50, 5, 650);
+VALUES (103, 60, 126, 80, 126, 50, 6, 650);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (650, 1, 5);
+VALUES (650, 1, 6);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (650, 18, 5);
+VALUES (650, 18, 6);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('servine', 496);
@@ -6312,11 +6312,11 @@ VALUES (656, 11, 5);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('samurott-hisui', False, 516);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (90, 108, 80, 100, 65, 85, 5, 657);
+VALUES (90, 108, 80, 100, 65, 85, 8, 657);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (657, 11, 5);
+VALUES (657, 11, 8);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (657, 17, 5);
+VALUES (657, 17, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('watchog', 505);
@@ -6576,9 +6576,9 @@ VALUES (684, 10, 5);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('darumaka-galar', False, 541);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (70, 90, 45, 15, 45, 50, 5, 685);
+VALUES (70, 90, 45, 15, 45, 50, 8, 685);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (685, 15, 5);
+VALUES (685, 15, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('maractus', 556);
@@ -6634,11 +6634,11 @@ VALUES (690, 8, 5);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('yamask-galar', False, 546);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (38, 55, 85, 30, 65, 30, 5, 691);
+VALUES (38, 55, 85, 30, 65, 30, 8, 691);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (691, 5, 5);
+VALUES (691, 5, 8);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (691, 8, 5);
+VALUES (691, 8, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('tirtouga', 564);
@@ -6683,11 +6683,11 @@ VALUES (695, 17, 5);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('zorua-hisui', False, 550);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (35, 60, 40, 85, 40, 70, 5, 696);
+VALUES (35, 60, 40, 85, 40, 70, 8, 696);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (696, 1, 5);
+VALUES (696, 1, 8);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (696, 8, 5);
+VALUES (696, 8, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('minccino', 572);
@@ -6956,11 +6956,11 @@ VALUES (722, 12, 5);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('lilligant-hisui', False, 576);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (70, 105, 75, 50, 75, 105, 5, 723);
+VALUES (70, 105, 75, 50, 75, 105, 8, 723);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (723, 12, 5);
+VALUES (723, 12, 8);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (723, 2, 5);
+VALUES (723, 2, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('krokorok', 552);
@@ -7005,18 +7005,18 @@ VALUES (727, 14, 5);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('darmanitan-galar-standard', False, 579);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (105, 140, 55, 30, 55, 95, 5, 728);
+VALUES (105, 140, 55, 30, 55, 95, 8, 728);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (728, 15, 5);
+VALUES (728, 15, 8);
 
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('darmanitan-galar-zen', False, 579);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (105, 160, 55, 30, 55, 135, 5, 729);
+VALUES (105, 160, 55, 30, 55, 135, 8, 729);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (729, 15, 5);
+VALUES (729, 15, 8);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (729, 10, 5);
+VALUES (729, 10, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('crustle', 558);
@@ -7074,9 +7074,9 @@ VALUES (734, 4, 5);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('garbodor-gmax', False, 584);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (80, 95, 82, 60, 82, 75, 5, 735);
+VALUES (80, 95, 82, 60, 82, 75, 8, 735);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (735, 4, 5);
+VALUES (735, 4, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('zoroark', 571);
@@ -7090,11 +7090,11 @@ VALUES (736, 17, 5);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('zoroark-hisui', False, 585);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (55, 100, 60, 125, 60, 110, 5, 737);
+VALUES (55, 100, 60, 125, 60, 110, 8, 737);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (737, 1, 5);
+VALUES (737, 1, 8);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (737, 8, 5);
+VALUES (737, 8, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('cinccino', 573);
@@ -7333,11 +7333,11 @@ VALUES (761, 13, 5);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('stunfisk-galar', False, 609);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (109, 81, 99, 66, 84, 32, 5, 762);
+VALUES (109, 81, 99, 66, 84, 32, 8, 762);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (762, 5, 5);
+VALUES (762, 5, 8);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (762, 9, 5);
+VALUES (762, 9, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('mienfoo', 619);
@@ -7715,11 +7715,11 @@ VALUES (799, 3, 5);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('braviary-hisui', False, 639);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (110, 83, 70, 112, 70, 65, 5, 800);
+VALUES (110, 83, 70, 112, 70, 65, 8, 800);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (800, 14, 5);
+VALUES (800, 14, 8);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (800, 3, 5);
+VALUES (800, 3, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('mandibuzz', 630);
@@ -8597,11 +8597,11 @@ VALUES (888, 16, 6);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('sliggoo-hisui', False, 713);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (58, 75, 83, 83, 113, 40, 6, 889);
+VALUES (58, 75, 83, 83, 113, 40, 8, 889);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (889, 9, 6);
+VALUES (889, 9, 8);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (889, 16, 6);
+VALUES (889, 16, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('goodra', 706);
@@ -8615,11 +8615,11 @@ VALUES (890, 16, 6);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('goodra-hisui', False, 714);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (80, 100, 100, 110, 150, 60, 6, 891);
+VALUES (80, 100, 100, 110, 150, 60, 8, 891);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (891, 9, 6);
+VALUES (891, 9, 8);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (891, 16, 6);
+VALUES (891, 16, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('trevenant', 709);
@@ -8682,11 +8682,11 @@ VALUES (897, 15, 6);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('avalugg-hisui', False, 717);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (95, 127, 184, 34, 36, 38, 6, 898);
+VALUES (95, 127, 184, 34, 36, 38, 8, 898);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (898, 15, 6);
+VALUES (898, 15, 8);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (898, 6, 6);
+VALUES (898, 6, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('noivern', 715);
@@ -9001,11 +9001,11 @@ VALUES (929, 8, 7);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('decidueye-hisui', False, 743);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (88, 112, 80, 95, 95, 60, 7, 930);
+VALUES (88, 112, 80, 95, 95, 60, 8, 930);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (930, 12, 7);
+VALUES (930, 12, 8);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (930, 2, 7);
+VALUES (930, 2, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('torracat', 726);
@@ -9914,9 +9914,9 @@ VALUES (1022, 9, 7);
 INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)
 VALUES ('melmetal-gmax', False, 805);
 INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)
-VALUES (135, 143, 143, 80, 65, 34, 7, 1023);
+VALUES (135, 143, 143, 80, 65, 34, 8, 1023);
 INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)
-VALUES (1023, 9, 7);
+VALUES (1023, 9, 8);
 
 INSERT INTO pokemon.pokemon_species (name, pokedex_index)
 VALUES ('brionne', 729);

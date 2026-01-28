@@ -35,6 +35,21 @@ def insert_pokemon_stats(cur, script, stats, form_id, generation_number):
     query = f"INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, base_special_defense, base_speed, fk_generation, fk_form)\nVALUES ({hp}, {attack}, {defense}, {special_attack}, {special_defense}, {speed}, {generation_number}, {form_id});"
     utils.write_query_to_file(script, query)
 
+def adapt_generation_number(name):
+    if (name == 'meganium'):
+        return 2 # Meganium is a Gen 2 Pokémon
+    elif (name == 'yanmega'):
+        return 4 # Yanmega is a Gen 4 Pokémon
+    elif ('mega' in name):
+        return 6 # Megas were mostly introduced in Gen 6 
+    elif ('alola' in name):
+        return 7 # All alolan forms were introduced in Gen 7
+    elif ('galar' in name or 'gmax' in name or 'hisui' in name):
+        return 8 # All Galar, Gigantamax and Hisuian forms were introduced in Gen 8
+    elif ('paldea' in name):
+        return 9 # All Paldean forms wer eintrodcued in Gen 9
+    else:
+        return 0 # The aux generation number does not change in any other scenario
 
 def insert_pokemon(cur, script, generation_number):
     header = "-- POKEMON-SPECIES, FORMS, ITS TYPES AND BASE_STATS\n-- POKEMON-SPECIES, FORMS, ITS TYPES AND BASE_STATS\n-- POKEMON-SPECIES, FORMS, ITS TYPES AND BASE_STATS\n"
@@ -42,6 +57,7 @@ def insert_pokemon(cur, script, generation_number):
 
     generation = utils.get_generation_data(generation_number)
     number_of_pokemon = len(generation["pokemon_species"]) 
+    aux_generation_number = 0 # Useful when dealing with forms introduced later than the base form
 
     for i in range(0, number_of_pokemon):
         pokemon_species_name = generation["pokemon_species"][i]["name"]
@@ -72,17 +88,28 @@ def insert_pokemon(cur, script, generation_number):
             query = f"INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)\nVALUES ('{current_form_name}', {is_default}, {pokemon_species_id_in_db});"
             utils.write_query_to_file(script, query)
             form_id = cur.lastrowid
+            
+            aux_generation_number = adapt_generation_number(current_form_name)
 
-            insert_pokemon_stats(cur, script, current_form["stats"], form_id, generation_number)
+            if aux_generation_number > 0:
+                insert_pokemon_stats(cur, script, current_form["stats"], form_id, aux_generation_number)
+            else:
+                insert_pokemon_stats(cur, script, current_form["stats"], form_id, generation_number)
 
+            aux_generation_number = adapt_generation_number(current_form_name)
             for i in range(0, len(current_form["types"])):
                 type_name = current_form["types"][i]["type"]["name"]
 
                 pk_type = utils.get_type_pk_by_name(cur, type_name)
 
-                cur.execute("INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)\nVALUES (%s, %s, %s)", (form_id, pk_type, generation_number))
-                query = f"INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)\nVALUES ({form_id}, {pk_type}, {generation_number});"
-                utils.write_query_to_file(script, query)
+                if aux_generation_number > 0:
+                    cur.execute("INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)\nVALUES (%s, %s, %s)", (form_id, pk_type, aux_generation_number))
+                    query = f"INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)\nVALUES ({form_id}, {pk_type}, {aux_generation_number});"
+                    utils.write_query_to_file(script, query)
+                else:
+                    cur.execute("INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)\nVALUES (%s, %s, %s)", (form_id, pk_type, generation_number))
+                    query = f"INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)\nVALUES ({form_id}, {pk_type}, {generation_number});"
+                    utils.write_query_to_file(script, query)
             
             utils.write_blank_line(script)
     utils.write_ending_blank_lines(script)
