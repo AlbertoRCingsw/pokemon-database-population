@@ -7,11 +7,10 @@ from data_generation import generations_data
 from data_generation import type_generation_relationship
 from data_generation import version_groups_data
 from data_generation import pokemon_data
-from data_generation import moves_data
 from data_generation import moves_by_pokemon
 from data_generation import pokemon_special_stat
 from data_generation import stat_type_changes
-from data_generation import test_move_data
+from data_generation import move_data
 
 # Open connection to the database
 conn = db.connect_to_db()
@@ -56,7 +55,7 @@ for generation_number in range(1, upper_generations_limit):
 
 # Inserts the moves
 for generation_number in range(1, upper_generations_limit):
-    test_move_data.insert_moves(cur, generation_number, showdown_url)
+    move_data.insert_moves(cur, generation_number, showdown_url)
 
 # Insert the relationship form_learned_moves
 # It represents the move learned by the pokemon in each generation
