@@ -1,4 +1,4 @@
-# Entorno virtual
+# Virtual environment
 .venv/
 __pycache__/
 pokemon2/
@@ -6,10 +6,19 @@ pokemon2/
 # IDEs
 .vscode/
 
-# Archivos de sistema
+# System files
 .DS_Store
 
-# Ficheros sql o txt
+# Directories
+cache/
+generations/
+moves/
+pokemon/
+pokemon-species/
+scripts/
+types/
+
+# Files
 *.sql
 *.bat
 *.bak
