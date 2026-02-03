@@ -35,8 +35,6 @@ The design is changing as the database is populated to better adapt to the extra
 
 The design is evolving as I populate it to better reflect the domain and adjust it to the scope of the project.
 
-
-
 ## State of development
 
 Successfully retrieved generations, types, Pokémon, which types belong to which generations, moves and the moves each Pokémon is able to learn in each generation, along with the corresponding learning method. Also, used web scraping to obtain the base special stat value for each Gen I Pokémon. The latest addition was the typing and base stats change data, because some Pokémon's typing or base stats changed in a generational transition.
@@ -52,7 +50,6 @@ Additionally, it includes items and their availability across some generations (
     • Added some more fields to the pokemon-species and form tables to store height, weight, cries, artwork, some flags (is_baby, is_legendary, is_mythical) and the previous evolution of a Pokémon species.
     • Items were added, and some of their availability.
     • Abilities were added.
-
 
 ## To Do
 
@@ -70,11 +67,12 @@ Additionally, it includes items and their availability across some generations (
     • Refactoring. Mainly to improve readability, consistency and performance. Implementing a 
     more robust approach to handle requests and multi-threading is also planned.
 
-## Potential future work
+## Future work
 
     • Using parquet files to improve performance.
-
-
+    • Containerize the database.
+    • Deploy the database in a cloud environment.
+    • Create an API to better access the contents of the database.
 
 ## Implementation notes
 
