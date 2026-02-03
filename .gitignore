@@ -15,5 +15,5 @@ pokemon2/
 *.bak
 *.txt
 
-!pokemon.sql
+!pokemon_db_script.sql
 !views.sql

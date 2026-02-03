@@ -1,9 +1,9 @@
 from data_generation import utils
 from pathlib import Path
 
-def get_pokemon_species_id(pokemon_species_name, pokemon_species_id, cur, script):
-    cur.execute("INSERT INTO pokemon.pokemon_species (name, pokedex_index)\nVALUES (%s, %s)", (pokemon_species_name, pokemon_species_id))
-    query = f"INSERT INTO pokemon.pokemon_species (name, pokedex_index)\nVALUES ('{pokemon_species_name}', {pokemon_species_id});"
+def get_pokemon_species_id(pokemon_species_name, pokemon_species_id, is_baby, is_legendary, is_mythical, evolves_from, cur, script):
+    cur.execute("INSERT INTO pokemon.pokemon_species (name, pokedex_index, is_baby, is_legendary, is_mythical, evolves_from)\nVALUES (%s, %s, %s, %s, %s, %s)", (pokemon_species_name, pokemon_species_id, is_baby, is_legendary, is_mythical, evolves_from))
+    query = f"INSERT INTO pokemon.pokemon_species (name, pokedex_index, is_baby, is_legendary, is_mythical, evolves_from)\nVALUES ('{pokemon_species_name}', {pokemon_species_id}, {is_baby}, {is_legendary}, {is_mythical}, {evolves_from});"
     utils.write_query_to_file(script, query)
     cur.execute("SELECT * FROM pokemon.pokemon_species WHERE name = %s", (pokemon_species_name,))
     result = cur.fetchone()
@@ -70,8 +70,13 @@ def insert_pokemon(cur, script, generation_number):
         varieties = species["varieties"]
         form_names = iterate_forms(varieties)
 
+        is_baby, is_legendary, is_mythical = species["is_baby"], species["is_legendary"], species["is_mythical"]
+        evolves_from = None
+        if (species.get("evolves_from_species", None) is not None):
+            evolves_from = species["evolves_from_species"]["name"]
+
         # Inserts the Pokemon and obtain its id, useful when creating relationships
-        pokemon_species_id_in_db = get_pokemon_species_id(pokemon_species_name, pokemon_species_id, cur, script)
+        pokemon_species_id_in_db = get_pokemon_species_id(pokemon_species_name, pokemon_species_id, is_baby, is_legendary, is_mythical, evolves_from, cur, script)
 
         pokemon_form_directory = Path("./pokemon")
         pokemon_form_entity = str(pokemon_form_directory)
@@ -84,8 +89,15 @@ def insert_pokemon(cur, script, generation_number):
             if current_form_name != pokemon_species_name:
                 is_default = False
 
-            cur.execute("INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)\nVALUES (%s, %s, %s)", (current_form_name, is_default, pokemon_species_id_in_db))
-            query = f"INSERT INTO pokemon.form (name, is_default, fk_pokemon_species)\nVALUES ('{current_form_name}', {is_default}, {pokemon_species_id_in_db});"
+            height, weight = current_form["height"], current_form["weight"]
+            legacy_cry, latest_cry = current_form["cries"]["legacy"], current_form["cries"]["latest"]
+            artwork = current_form["sprites"]["other"]["official-artwork"]["front_default"]
+            shiny_artwork = current_form["sprites"]["other"]["official-artwork"]["front_shiny"]
+
+            cur.execute("INSERT INTO pokemon.form (name, is_default, fk_pokemon_species, height, weight, legacy_cry, latest_cry, artwork, shiny_artwork)" \
+                        "\nVALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (current_form_name, is_default, pokemon_species_id_in_db, height, weight, legacy_cry, latest_cry, artwork, shiny_artwork))
+            query = "INSERT INTO pokemon.form (name, is_default, fk_pokemon_species, height, weight, legacy_cry, latest_cry, artwork, shiny_artwork)\n" \
+                    f"VALUES ('{current_form_name}', {is_default}, {pokemon_species_id_in_db}, {height}, {weight}, {legacy_cry}, {latest_cry}, {artwork}, {shiny_artwork});"
             utils.write_query_to_file(script, query)
             form_id = cur.lastrowid
             
@@ -99,16 +111,19 @@ def insert_pokemon(cur, script, generation_number):
             aux_generation_number = adapt_generation_number(current_form_name)
             for i in range(0, len(current_form["types"])):
                 type_name = current_form["types"][i]["type"]["name"]
-
                 pk_type = utils.get_type_pk_by_name(cur, type_name)
 
+                is_primary = False
+                if (current_form["types"][i]["slot"] == 1):
+                    is_primary = True
+
                 if aux_generation_number > 0:
-                    cur.execute("INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)\nVALUES (%s, %s, %s)", (form_id, pk_type, aux_generation_number))
-                    query = f"INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)\nVALUES ({form_id}, {pk_type}, {aux_generation_number});"
+                    cur.execute("INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation, is_primary)\nVALUES (%s, %s, %s, %s)", (form_id, pk_type, aux_generation_number, is_primary))
+                    query = f"INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation, is_primary)\nVALUES ({form_id}, {pk_type}, {aux_generation_number}, {is_primary});"
                     utils.write_query_to_file(script, query)
                 else:
-                    cur.execute("INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)\nVALUES (%s, %s, %s)", (form_id, pk_type, generation_number))
-                    query = f"INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation)\nVALUES ({form_id}, {pk_type}, {generation_number});"
+                    cur.execute("INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation, is_primary)\nVALUES (%s, %s, %s, %s)", (form_id, pk_type, generation_number, is_primary))
+                    query = f"INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation, is_primary)\nVALUES ({form_id}, {pk_type}, {generation_number}, {is_primary});"
                     utils.write_query_to_file(script, query)
             
             utils.write_blank_line(script)

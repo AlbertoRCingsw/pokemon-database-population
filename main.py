@@ -11,6 +11,8 @@ from data_generation import moves_by_pokemon
 from data_generation import pokemon_special_stat
 from data_generation import stat_type_changes
 from data_generation import move_data
+from data_generation import items_data
+from data_generation import abilities_data
 
 # Open connection to the database
 conn = db.connect_to_db()
@@ -67,6 +69,13 @@ db.commit_data(conn)
 pokemon_special_stat.insert_special_stat(cur)
 
 stat_type_changes.stat_changes(cur)
+
+items_data.insert_items(cur)
+
+db.commit_data(conn)
+
+for i in range(1, 10):
+    abilities_data.insert_abilities(cur, i)
 
 # Closes connection to the database
 db.close_connection_to_db(conn, cur)

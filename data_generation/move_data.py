@@ -2,20 +2,6 @@ from data_generation import utils
 from pathlib import Path
 import requests
 
-# Notes
-
-# name, priority, power, accuracy, pp and type may change over time -> PokéAPI
-
-# crit_rate, min_hits, max_hits, min_turns, max_turns, 
-# drain, flinch_chance, healing, recoil, target -> PokéAPI
-
-# stat changes and ailments -> PokéAPI
-
-# flags -> Showdown
-# category -> showdown
-# description and short description -> showdown
-# called desc and shortDesc in Showdown"s JSON
-
 flags = ["protect", "mirror", "metronome", "contact", "snatch", "bullet", "distance", "slicing", "wind", "bypasssub", "sound", "dance", "nosleeptalk", "noassist", "pulse", "bite", "charge", "gravity", "punch", "defrost", "powder"]
 other_flags = ["isNonstandard", "isZ", "ohko", "willCrit"]
 

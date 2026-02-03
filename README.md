@@ -1,5 +1,7 @@
 This is a personal project that aims to automatically populate a Pokémon database I designed using MySQL and Python.
 
+The Pokémon IP is owned by Nintendo, Game Freak and Creatures Inc. This is not an official project and all assets belong to their respective owners. 
+
 ## Main goal and scope
 
 This project aims to represent the Pokémon world in a scalable SQL database that contains all necessary information to build and store Pokémon teams. The idea is to store every single Pokémon, move, type, ability… and the relationships between them, across generations.
@@ -27,11 +29,13 @@ The design is changing as the database is populated to better adapt to the extra
 
 - The table form_learned_moves has proven to be one of the most complex tables in the database, but its complexity is warranted. It's responsible for storing which moves are learned by each Pokémon in each game/version group and, in turn, in each generation. This was deemed necessary because some moves may be added to the movepool, and some of them may be removed from it, in each generation and version group.
 
-- Moves have a lot of information to store, so they are the entity with the highest number of tables. Needed to store different versions and effects, because moves may have more than one effect (for example, increasing more than one stat)
+- Moves have a lot of information to store, so they are the entity with the highest number of tables. They are needed to store different versions and effects, because moves may have more than one effect (for example, increasing more than one stat) or their characteristics (power, accuracy...) may change when a new generation is introduced.
 
-- Generations is vital to the database becaause it allows it to store different versions of hings like base stats, move versions...
+- Generations is vital to the database becaause it allows it to store different versions of things like base stats, move versions...
 
 The design is evolving as I populate it to better reflect the domain and adjust it to the scope of the project.
+
+
 
 ## State of development
 
@@ -41,34 +45,49 @@ Right now, the database can answer questions such as when does a specific Pokém
 
 It also includes some information about how moves have changed over time (see implementation notes) and some flags. The flags are useful to store specific information that goes beyond basic parameters like power or accuracy.
 
+Additionally, it includes items and their availability across some generations (see implementation notes).
+
 ## Acomplished tasks in the last commit
 
-    • Pokémon stat changes from one generation to another have been added. The special stat,
-    from Gen I was added in the previous commit.
-    • Pokémon type changes were also added. 
-    • Move versioning. Keeping track of different move versions across multiple generations and
-    adding flags that complement the moves' information.
+    • Added some more fields to the pokemon-species and form tables to store height, weight, cries, artwork, some flags (is_baby, is_legendary, is_mythical) and the previous evolution of a Pokémon species.
+    • Items were added, and some of their availability.
+    • Abilities were added.
 
 
 ## To Do
 
     • Create a small script to run both Pokémon.sql and views.sql.
-    • Insert the Pokémon gender ratios.
+    • Modify the method create_directory_and_return_data in utils.py, to include a cache directory. 
+    Similar to how it works in items_data.py y abilities_data.py.
     • Insert whether or not the forms are switchable in combat. For exmaple, Rotom cannot change forms 
     in the middle of combat, but Meloetta and Darmanitan both can.
-    • Insert abilities and how some abilities themselves and their availability have changed 
-    across generations.
-    • Insert items and their availability across generations.
+    • Insert the Pokémon gender ratios.
+    • Insert natures.
+    • Insert some abilities availability changes. For instance, Gengar lost Levitate in Gen VII. 
+    Reflect that change in the database. 
     • Create tables for managing Pokémon teams and trainers.
+
+    • Refactoring. Mainly to improve readability, consistency and performance. Implementing a 
+    more robust approach to handle requests and multi-threading is also planned.
+
+## Potential future work
+
+    • Using parquet files to improve performance.
+
+
 
 ## Implementation notes
 
 Pokémon teams and trainers are not present in the database right now, but they will be. Right now, the focus is on modeling the different Pokémon species, forms, moves... correctly to have a solid foundation. The same can be said about Z-Moves, which are absent from the main data source, and teratypes. Megaevolutions are an exception because they are more readily available.
 
-The special stat was featured in Gen I, but it was replaced in Gen II by the special attack and special defense stats. Web scraping was used to retrieve its value for each Gen I Pokémon. Exceptions, like the Pokémon whose type or stats changed were dealt with manually because information about those changes isn't as readily available as the special stat.
+The special stat was featured in Gen I, but it was replaced in Gen II by the special attack and special defense stats. Web scraping was used to retrieve its value for each Gen I Pokémon. Exceptions, like the Pokémon whose type or others stats changed were dealt with manually because information about those changes isn't as readily available as the special stat.
 
 Move versioning was introduced, but the versions of each effect were not present in the resources I extracted the information from, so the database only contains the information I could automatically extract. It would need case-by-case adjustments because that information is not missing, but rather incomplete. I will add fixes as I come across them.
 
 There are flags associated with each move, and they are used to register some key information such as if the move will always crit or if the move is affected by Protect. They were extracted from Pokémon Showdown's data and thus, some of them were not included because they are specific to the Showdown implementation and not that relevant to this project.
+
+Items availability across generations is poorly documented in both the primary and secondary sources. Automating the extraction of items availability outside of Generations III-VIII is currently not feasible. This will be revisited in the future, since items availability is important for the database's main goal.
+
+Likewise, there doesn't seem to be a source where it is documented when Pokémon gain new abilities. All the current abilities can be easily retrieved, as well as important changes like Chandelure's Shadow Tag in Gen V --> Chandelure's Infiltrator in Gen VI, but a more granular approach is desirable. This will be revisited, since there is a lot of documentation available in natural language.
 
 Initially, I thought that it would be a good idea to generate the .sql scripts necessary to populate the database, but it soon proved to be extremely inefficient. That's why they are included in the .gitignore file. Same goes for the .bat files, since I will no longer be needing to develop a script that executes the .sql scripts in the correct order. This will be done using the MySQL Python library. The code is left there for completeness and development purposes, they let me experiment with bash scripts, even though they are not efficient in this particular scenario.

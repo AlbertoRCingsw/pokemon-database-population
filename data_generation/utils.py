@@ -60,6 +60,7 @@ def create_directory_and_return_data(directory, entity, identifier):
     if directory.is_dir() and file_path.is_file():
             data = read_from_json_file(file_path)
     else:
+
         url = f"https://pokeapi.co/api/v2/{entity}/{identifier}"
 
         time.sleep(0.6)
@@ -67,6 +68,20 @@ def create_directory_and_return_data(directory, entity, identifier):
         
         create_json_file(file_path, data)
     
+    return data
+
+def create_item_directory_and_return_data(directory, entity, item_name, item_url):
+    file_path = directory / f"{entity}_{item_name}.json"
+
+    if directory.is_dir() and file_path.is_file():
+            data = read_from_json_file(file_path)
+    else:
+        url = item_url
+
+        time.sleep(0.6)
+        data = process_url(url, entity, item_name)
+        
+        create_json_file(file_path, data)
     return data
 
 def get_entire_pokedex(url, directory, json_file_name):
