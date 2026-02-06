@@ -2,8 +2,25 @@ from data_generation import utils
 from pathlib import Path
 import requests
 
-flags = ["protect", "mirror", "metronome", "contact", "snatch", "bullet", "distance", "slicing", "wind", "bypasssub", "sound", "dance", "nosleeptalk", "noassist", "pulse", "bite", "charge", "gravity", "punch", "defrost", "powder"]
-other_flags = ["isNonstandard", "isZ", "ohko", "willCrit"]
+IMPORTANT_FLAGS = ["protect", "mirror", "metronome", "contact", "snatch", 
+                   "bullet", "distance", "slicing", "wind", "bypasssub", 
+                   "sound", "dance", "nosleeptalk", "noassist", "pulse", 
+                   "bite", "charge", "gravity", "punch", "defrost", "powder"]
+BAD_POISON_MOVES = ["poison-fang", "malignant-chain", "toxic"]
+
+def is_useful_flag(flag):
+    return flag in IMPORTANT_FLAGS
+
+def is_shadow_move(move, name):
+
+    is_in_gen3 = move["generation"]["name"] == "generation-iii"
+    name_contains_shadow = "shadow" in name
+    is_not_common = name not in ["shadow-ball", "shadow-punch", "shadow-claw", "shadow-force", "shadow-sneak"]
+    
+    return is_in_gen3 and name_contains_shadow and is_not_common
+
+def is_z_move(name):
+    return name.endswith("--special") or name.endswith("--physical") or name == "catastropika"
 
 def process_showdown_url(url):
     response = requests.get(url)
@@ -14,31 +31,30 @@ def process_showdown_url(url):
     
     return data
 
-def append_to_query_list(value, query_list):
-    query_list.append(value)
+
 
 def get_move_data(cur, move, showdown_move, generation_number):
 
     # stat changes and ailments -> PokéAPI
 
-    query_values_list = [] # Constructs the arguments of the query
+    query_values_list = [] # Constructs the query arguments
 
     # The type needs some processing
-    fk_type = utils.get_type_pk_by_name(cur, move["type"]["name"])
-    append_to_query_list(fk_type, query_values_list)
+    fk_type = utils.get_pk_by_name(cur, "type", move["type"]["name"])
+    query_values_list.append(fk_type)
 
     # The generation it was introduced in
-    append_to_query_list(generation_number, query_values_list)
+    query_values_list.append(generation_number)
 
-    append_to_query_list(move.get("name"), query_values_list)
-    append_to_query_list(move.get("power") or 0, query_values_list)
+    query_values_list.append(move.get("name"))
+    query_values_list.append(move.get("power") or 0)
 
     # If no accuracy, the field is 0 because if it were to be implemented in gameplay, 0 is an impossible accuracy value
-    append_to_query_list(move.get("accuracy") or 0, query_values_list)
-    append_to_query_list(showdown_move["category"], query_values_list)
-    append_to_query_list(move["pp"], query_values_list)
+    query_values_list.append(move.get("accuracy") or 0)
 
-    append_to_query_list(move["target"]["name"], query_values_list)
+    query_values_list.append(showdown_move.get("category").lower())
+    query_values_list.append(move.get("pp"))
+    query_values_list.append(move["target"]["name"])
 
     # crit_rate, min_hits, max_hits, min_turns, max_turns, 
     # drain, flinch_chance, healing, recoil
@@ -75,9 +91,10 @@ def get_move_data(cur, move, showdown_move, generation_number):
         min_hits, max_hits, min_turns, max_turns = 0, 0, 0, 0
         recoil = 0  
     
-    append_to_query_list(showdown_move["desc"], query_values_list)
-    append_to_query_list(showdown_move["shortDesc"], query_values_list)
-    append_to_query_list(move["priority"], query_values_list)
+    query_values_list.append(showdown_move["desc"])
+    query_values_list.append(showdown_move["shortDesc"])
+    query_values_list.append(move["priority"])
+
     query_values_list.append(crit_rate)
     query_values_list.append(drain)
     query_values_list.append(flinch_chance)
@@ -123,18 +140,11 @@ def insert_move(cur, data):
     
     return cur.lastrowid
 
-def get_type_id(type_name, cur):
-    if type_name == "unknown":
-        type_name = "???"
-    cur.execute("SELECT pk_type FROM pokemon.type WHERE name = %s", (type_name,))
-    result = cur.fetchone()
-    return result[0]
-
 def check_if_none(cur, move_details, key, fk_move):
     value = "none"
 
     if key == "type" and not (move_details.get("type") is None):
-        value = get_type_id(move_details["type"]["name"], cur)
+        value = utils.get_pk_by_name(cur, "type", move_details["type"]["name"])
     else:
         if not key in move_details or key in move_details and move_details[key] is None:
             if key == "pp":
@@ -148,11 +158,6 @@ def check_if_none(cur, move_details, key, fk_move):
             value = move_details[key]
 
     return value
-
-def get_gen_by_games(cur, version_group):
-    cur.execute("SELECT fk_generation FROM pokemon.version_group vg WHERE vg.name = %s", (version_group,))
-    next_gen = cur.fetchone()[0] 
-    return next_gen
 
 def add_move_version(cur, query_tuple):
     cur.execute("INSERT INTO pokemon.move_version (fk_move, name, fk_type, power, accuracy, power_points, fk_generation) " \
@@ -173,7 +178,7 @@ def insert_move_version(cur, fk_move, move_details, gen_number):
     add_move_version(cur, query_tuple)
 
     next_version_group = move_details["version_group"]["name"]
-    next_gen = get_gen_by_games(cur, next_version_group)
+    next_gen = utils.get_gen_by_games(cur, next_version_group)
     return next_gen
 
 def move_versioning(cur, fk_move, past_values, first_gen):
@@ -196,17 +201,6 @@ def move_versioning(cur, fk_move, past_values, first_gen):
 
     query_tuple = almost_query_tuple + (generation_value,)
     add_move_version(cur, query_tuple)
-
-def is_shadow_move(move, name):
-
-    is_in_gen3 = move["generation"]["name"] == "generation-iii"
-    name_contains_shadow = "shadow" in name
-    is_not_common = name not in ["shadow-ball", "shadow-punch", "shadow-claw", "shadow-force", "shadow-sneak"]
-    
-    return is_in_gen3 and name_contains_shadow and is_not_common
-
-def is_z_move(name):
-    return name.endswith("--special") or name.endswith("--physical") or name == "catastropika"
 
 def process_showdown_move(name):
     showdown_key = name
@@ -233,33 +227,27 @@ def get_effect_id(cur, name, chance, value):
         result = result[0]
     return result
 
-def move_stat_changes(cur, fk_move, move):
-
-    stat_changes = move["stat_changes"]
-    for i in range(0, len(stat_changes)):
-        effect_id = get_effect_id(cur, stat_changes[i]["stat"]["name"], move["meta"]["stat_chance"], stat_changes[i]["change"])
-
-        cur.execute("INSERT INTO pokemon.move_has_move_effect (fk_move, fk_move_effect) " \
-                    "VALUES (%s, %s)", (fk_move, effect_id))
-
-def is_bad_poison(name):
-
-    result = False
-    bad_poison_moves = ["poison-fang", "malignant-chain", "toxic"]
-    if name in bad_poison_moves:
-        result = True
-    
-    return result
+def deal_with_ailment_exceptions(cur, fk_move, ailments, chance):
+    for i in range(0, len(ailments)):
+        effect_id = get_effect_id(cur, ailments[i], chance, 1)
+        insert_ailment(cur, fk_move, effect_id)
 
 def insert_ailment(cur, fk_move, fk_effect):
     cur.execute("INSERT INTO move_has_move_effect (fk_move, fk_move_effect)" \
                 "VALUES (%s, %s)", (fk_move, fk_effect))
 
-def deal_with_ailment_exceptions(cur, fk_move, ailments, chance):
+def move_stat_changes(cur, fk_move, move):
 
-    for i in range(0, len(ailments)):
-        effect_id = get_effect_id(cur, ailments[i], chance, 1)
-        insert_ailment(cur, fk_move, effect_id)
+    stat_changes = move["stat_changes"]
+    for i in range(0, len(stat_changes)):
+        
+        if (move.get("meta") is None):
+            effect_id = get_effect_id(cur, stat_changes[i]["stat"]["name"], 100, stat_changes[i]["change"])
+        else:
+            effect_id = get_effect_id(cur, stat_changes[i]["stat"]["name"], move["meta"]["stat_chance"], stat_changes[i]["change"])
+
+        cur.execute("INSERT INTO pokemon.move_has_move_effect (fk_move, fk_move_effect) " \
+                    "VALUES (%s, %s)", (fk_move, effect_id))
 
 def move_ailment(cur, fk_move, move):
     ailment = move["meta"]["ailment"]["name"]
@@ -268,7 +256,7 @@ def move_ailment(cur, fk_move, move):
     move_stat_changes(cur, fk_move, move)
 
     value = 1
-    if is_bad_poison(move["name"]):
+    if (move["name"] in BAD_POISON_MOVES):
         value = 2
 
     if (move["name"] == "tri-attack"):
@@ -277,15 +265,6 @@ def move_ailment(cur, fk_move, move):
     else:
         effect_id = get_effect_id(cur, ailment, ailment_chance, value)
         insert_ailment(cur, fk_move, effect_id)
-
-def is_useful_flag(flag):
-
-    important_flags =["protect", "mirror", "metronome", "contact", "snatch",
-    "bullet", "distance", "slicing", "wind", "bypasssub",
-    "sound", "dance", "nosleeptalk", "noassist", "pulse",
-    "bite", "charge", "gravity", "punch", "defrost", "powder"]
-
-    return flag in important_flags
 
 def get_flag_id(cur, flag_name):
 
@@ -318,19 +297,16 @@ def insert_flags(cur, fk_move, showdown_move, flags):
     if ohko:
         insert_flag(cur, fk_move, "ohko")
 
-def insert_moves(cur, generation_number, showdown_json_url):
+def insert_moves(cur, generation_number, showdown_json_url, moves_directory):
 
     showdown_json = process_showdown_url(showdown_json_url)
 
     generation = utils.get_generation_data(generation_number)
     generation_moves = generation["moves"]
 
-    moves_directory = Path("./moves")
-    move_entity = str(moves_directory)[:-1]
-
     for i in range(0, len(generation_moves)):
         move_name = generation_moves[i]["name"]
-        move = utils.create_directory_and_return_data(moves_directory, move_entity, move_name)
+        move = utils.create_directory_and_return_data(moves_directory, move_name)
 
         if  is_shadow_move(move, move_name) or is_z_move(move_name):
             print("shadow move or z move, skip for now")
@@ -342,7 +318,7 @@ def insert_moves(cur, generation_number, showdown_json_url):
             data = get_move_data(cur, move, showdown_move, generation_number)
             pk_move = insert_move(cur, data)
 
-            print(f"Inserted {move_name}, with id {pk_move}")
+            print(f"🎉Inserted {move_name}, with id {pk_move}")
             
             move_past_values = move.get("past_values", None)
 
@@ -352,12 +328,10 @@ def insert_moves(cur, generation_number, showdown_json_url):
             if move["stat_changes"] is not None and move["stat_changes"]:
                 move_stat_changes(cur, pk_move, move)
             
-            if (move["meta"] is not None and move["meta"] and move["meta"]["ailment"]["name"].lower() != "none"):
+            if (move["meta"] and move["meta"] is not None and move["meta"]["ailment"]["name"].lower() != "none"):
                 move_ailment(cur, pk_move, move)
             elif move["name"] == "dire-claw":
                 dire_claw_ailments = ["poison", "paralysis", "sleep"]
                 deal_with_ailment_exceptions(cur, pk_move, dire_claw_ailments, 50)
             
-            insert_flags(cur, pk_move, showdown_move, showdown_move["flags"])
-
-                
+            insert_flags(cur, pk_move, showdown_move, showdown_move["flags"])         

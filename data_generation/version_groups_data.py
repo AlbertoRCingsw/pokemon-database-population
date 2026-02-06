@@ -3,10 +3,9 @@ from pathlib import Path
 from data_generation import utils
 
 # Function to get and transform the type data
-def insert_data(cur, script, number):
+def insert_data(cur, script, number, generations_directory):
     
-    generations_directory = Path("./generations")
-    file_path = generations_directory / f"generation_{number}.json"
+    file_path = generations_directory / f"{number}.json"
     
     generation = utils.read_from_json_file(file_path)
     
@@ -22,13 +21,13 @@ def insert_data(cur, script, number):
     
 
 
-def insert_version_groups(cur, script, upper_generations_limit):
+def insert_version_groups(cur, script, upper_generations_limit, generations_directory):
     header = "-- VERSION_GROUPS\n-- VERSION_GROUPS\n-- VERSION_GROUPS\n\n"
     utils.write_header(script, header)
     
     for i in range(1, upper_generations_limit):  # The 9 generations
         try:
-            insert_data(cur, script, i)
+            insert_data(cur, script, i, generations_directory)
         except Exception as e:
             print(f"❌ Error with generation #{i}: {e}")
     

@@ -45,17 +45,16 @@ It also includes some information about how moves have changed over time (see im
 
 Additionally, it includes items and their availability across some generations (see implementation notes).
 
+Some refactoring was done after adding items and abilities to the database.
+
 ## Acomplished tasks in the last commit
 
-    • Added some more fields to the pokemon-species and form tables to store height, weight, cries, artwork, some flags (is_baby, is_legendary, is_mythical) and the previous evolution of a Pokémon species.
-    • Items were added, and some of their availability.
-    • Abilities were added.
+    • Refactor: cleaned up duplicate and redundant code, introduced global constants, added some docstrings in utils.py and all the 
+    data is now cached in the same directory
 
 ## To Do
 
     • Create a small script to run both Pokémon.sql and views.sql.
-    • Modify the method create_directory_and_return_data in utils.py, to include a cache directory. 
-    Similar to how it works in items_data.py y abilities_data.py.
     • Insert whether or not the forms are switchable in combat. For exmaple, Rotom cannot change forms 
     in the middle of combat, but Meloetta and Darmanitan both can.
     • Insert the Pokémon gender ratios.
@@ -64,8 +63,8 @@ Additionally, it includes items and their availability across some generations (
     Reflect that change in the database. 
     • Create tables for managing Pokémon teams and trainers.
 
-    • Refactoring. Mainly to improve readability, consistency and performance. Implementing a 
-    more robust approach to handle requests and multi-threading is also planned.
+    • Some more refactoring. Mainly to improve readability, consistency and performance. 
+    Implementing a more robust approach to handle requests and multi-threading is also planned.
 
 ## Future work
 
@@ -89,3 +88,5 @@ Items availability across generations is poorly documented in both the primary a
 Likewise, there doesn't seem to be a source where it is documented when Pokémon gain new abilities. All the current abilities can be easily retrieved, as well as important changes like Chandelure's Shadow Tag in Gen V --> Chandelure's Infiltrator in Gen VI, but a more granular approach is desirable. This will be revisited, since there is a lot of documentation available in natural language.
 
 Initially, I thought that it would be a good idea to generate the .sql scripts necessary to populate the database, but it soon proved to be extremely inefficient. That's why they are included in the .gitignore file. Same goes for the .bat files, since I will no longer be needing to develop a script that executes the .sql scripts in the correct order. This will be done using the MySQL Python library. The code is left there for completeness and development purposes, they let me experiment with bash scripts, even though they are not efficient in this particular scenario.
+
+Right now, the project uses relative paths, so main.py should be executed from the root directory.

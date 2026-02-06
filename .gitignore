@@ -23,6 +23,8 @@ types/
 *.bat
 *.bak
 *.txt
+.env
+test_main.py
 
 !pokemon_db_script.sql
 !views.sql
