@@ -23,17 +23,15 @@ Later, this could be used to create applications such as a Pokémon damage calcu
 
 ## The design 
 
-The design is changing as the database is populated to better adapt to the extracted data and to make the design cleaner. Since the database has a lot of tables, the most important details are explained below:
+The design is changing as the database is populated to better adapt to the extracted data, to better reflect the domain and to make the design cleaner. Since the database has a lot of tables, the most important details are explained below:
 
 - I found three tables to be enough for modeling Pokémon. A Pokémon species may have multiple forms and a Pokémon instance is needed to deal with Pokémon teams, since it's likely that you will need more than one instance of the same Pokémon in the same form. For instance, you may have two teams, with a different Rotom-Wash each. Stats are in a separate table to allow multiple stats sets to be associated with a Pokémon, since some Pokémon stats have changed in recent generations.
 
 - The table form_learned_moves has proven to be one of the most complex tables in the database, but its complexity is warranted. It's responsible for storing which moves are learned by each Pokémon in each game/version group and, in turn, in each generation. This was deemed necessary because some moves may be added to the movepool, and some of them may be removed from it, in each generation and version group.
 
-- Moves have a lot of information to store, so they are the entity with the highest number of tables. They are needed to store different versions and effects, because moves may have more than one effect (for example, increasing more than one stat) or their characteristics (power, accuracy...) may change when a new generation is introduced.
+- Move have a lot of information to store, so they are the entity with the highest number of tables. They are needed to store different versions and effects, because moves may have more than one effect (for example, increasing more than one stat) or their characteristics (power, accuracy...) may change when a new generation is introduced.
 
-- Generations is vital to the database becaause it allows it to store different versions of things like base stats, move versions...
-
-The design is evolving as I populate it to better reflect the domain and adjust it to the scope of the project.
+- Generation is vital to the database becaause it allows it to store different versions of things like base stats, move versions, abilities...
 
 ## State of development
 
@@ -51,13 +49,22 @@ Natures and gender ratios were added.
 
 ## Acomplished tasks in the last commit
 
-- Natures and the gender ratios for each Pokémon.
+Some clean up: 
+
+- find_move_by_index function in moves_by_pokemon.py and added a docstring
+- Finished adding docstrings in utils.py
+- Deleted some empty tables in the database. Those tables were deemed unnecessary because
+even if they stored data, their data could be inferred.
+- All tables in the database now feature a primary key that is not a combination of multiple
+foreign keys.
+- Created fixes.py. See the "Implementation notes" section.
 
 ## To Do
 
-    • Create a small script to run both Pokémon.sql and views.sql.
-    • Insert whether or not the forms are switchable in combat. For exmaple, Rotom cannot change forms 
-    in the middle of combat, but Meloetta and Darmanitan both can.
+    • Create a small script to run both pokemon_db_script.sql and views.sql.
+    • Retrieve a sprite for each type.
+    • Insert whether or not the forms are switchable in combat. For instance, Rotom cannot change forms 
+    in the middle of combat, but both Meloetta and Darmanitan can.
     • Insert some abilities availability changes. For instance, Gengar lost Levitate in Gen VII. 
     Reflect that change in the database. 
     • Create tables for managing Pokémon teams and trainers.
@@ -65,9 +72,6 @@ Natures and gender ratios were added.
     • More refactoring. Mainly to improve readability, consistency and performance. Also to clean 
     up some duplicate code and encapsulate repeated select and insert operations in a single function 
     (one for each).
-    
-    • Fix some inconsistencies in the database. All tables representing a relationship will feature
-    a single primary key.
 
     • Implementing a more robust approach to handle requests and multi-threading is also planned.
 
@@ -92,6 +96,8 @@ Items availability across generations is poorly documented in both the primary a
 
 Likewise, there doesn't seem to be a source where it is documented when Pokémon gain new abilities. All the current abilities can be easily retrieved, as well as important changes like Chandelure's Shadow Tag in Gen V --> Chandelure's Infiltrator in Gen VI, but a more granular approach is desirable. This will be revisited, since there is a lot of documentation available in natural language.
 
-Initially, I thought that it would be a good idea to generate the .sql scripts necessary to populate the database, but it soon proved to be extremely inefficient. That's why they are included in the .gitignore file. Same goes for the .bat files, since I will no longer be needing to develop a script that executes the .sql scripts in the correct order. This will be done using the MySQL Python library. The code is left there for completeness and development purposes, they let me experiment with bash scripts, even though they are not efficient in this particular scenario.
+fixes.py is a file where I update and store some missing data manually. It is there so that I can add missing information as I come across it.
+
+Initially, I thought that it would be a good idea to generate the .sql scripts necessary to populate the database, but it soon proved to be extremely inefficient. That's why they are included in the .gitignore file. Same goes for the .bat files, since I will no longer be needing to develop a script that executes the .sql scripts in the correct order. This will be done using the MySQL Python library. The code that generated the .sql files was ultimately removed.
 
 Right now, the project uses relative paths, so main.py should be executed from the root directory.

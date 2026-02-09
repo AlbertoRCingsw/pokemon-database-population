@@ -162,7 +162,7 @@ def get_entity_data(entity_name) -> list:
         progress += 20
         if progress > total:
             progress = total
-        print(f"Progress {entity_name}: {progress} / {total}")
+        print(f"Progress in entity {entity_name}: {progress} / {total}")
 
     return result_list
 
@@ -227,10 +227,6 @@ def get_pk_by_name(cur: MySQLCursor, entity: str, name: str) -> int:
     Returns:
         int: The primary key belonging to the selected row.
     '''
-
-    # if name == "unknown" and entity == "type":
-    #     name = "???"
-
     cur.execute(f"SELECT pk_{entity} FROM pokemon.{entity} WHERE name = %s", (name,))
     result = cur.fetchone()
     pk_entity = result[0]

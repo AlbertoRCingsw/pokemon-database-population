@@ -11,7 +11,7 @@ def get_type_id(type_name, cur):
     return result[0]
 
 def insert_relationship(type_id, generation_id, cur):
-    cur.execute("INSERT INTO pokemon.type_has_generation (fk_type, fk_generation) VALUES (%s, %s)", (type_id, generation_id))
+    cur.execute("INSERT INTO pokemon.type_is_in_generation (fk_type, fk_generation) VALUES (%s, %s)", (type_id, generation_id))
 
 def manage_relationship(cur, generation, type_id):
     generation_id = get_generation_id(generation, cur)

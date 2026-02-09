@@ -15,6 +15,7 @@ from data_generation import moves_data
 from data_generation import items_data
 from data_generation import abilities_data
 from data_generation import natures
+from data_generation import fixes
 
 from dotenv import load_dotenv
 import os
@@ -26,8 +27,7 @@ SHOWDOWN_MOVES_URL = "https://play.pokemonshowdown.com/data/moves.json"
 SHOWDOWN_POKEDEX_URL = "https://play.pokemonshowdown.com/data/pokedex.json"
 POKEAPI_BASE_URL = "https://pokeapi.co/api/v2/"
 
-UPPER_TYPES_LIMIT = 19 # 1 + the number of types -> loops
-UPPER_GENERATIONS_LIMIT = 10 # 1 + the number of generations -> loops
+UPPER_GENERATIONS_LIMIT = 10 # 1 + the number of generations -> used in loops
 
 CACHE_DIRECTORY = Path(os.getenv("CACHE_DIR"))
 TYPES_DIRECTORY = CACHE_DIRECTORY / "types/"
@@ -103,7 +103,10 @@ for i in range(1, UPPER_GENERATIONS_LIMIT):
 natures.insert_natures(cur, NATURES_DIRECTORY)
 
 # Teams
+
 # Trainers
+
+fixes.fix_data(cur)
 
 # Closes connection to the database
 db.close_connection_to_db(conn, cur)

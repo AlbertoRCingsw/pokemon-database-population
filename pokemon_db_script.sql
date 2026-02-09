@@ -303,11 +303,12 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `pokemon`.`form_has_type_per_generation` ;
 
 CREATE TABLE IF NOT EXISTS `pokemon`.`form_has_type_per_generation` (
+  `pk_form_has_type_per_generation` INT NOT NULL AUTO_INCREMENT,
   `fk_form` INT NOT NULL,
   `fk_type` INT NOT NULL,
   `fk_generation` INT NOT NULL,
   `is_primary` TINYINT NULL,
-  PRIMARY KEY (`fk_form`, `fk_type`, `fk_generation`),
+  PRIMARY KEY (`pk_form_has_type_per_generation`),
   INDEX `fk_form_has_type_type1_idx` (`fk_type` ASC) VISIBLE,
   INDEX `fk_form_has_type_form1_idx` (`fk_form` ASC) VISIBLE,
   INDEX `fk_form_has_type_per_generation_generation1_idx` (`fk_generation` ASC) VISIBLE,
@@ -424,62 +425,15 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `pokemon`.`generation_has_move`
+-- Table `pokemon`.`type_is_in_generation`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `pokemon`.`generation_has_move` ;
+DROP TABLE IF EXISTS `pokemon`.`type_is_in_generation` ;
 
-CREATE TABLE IF NOT EXISTS `pokemon`.`generation_has_move` (
-  `fk_generation` INT NOT NULL,
-  `fk_move` INT NOT NULL,
-  PRIMARY KEY (`fk_generation`, `fk_move`),
-  INDEX `fk_generation_has_move_move1_idx` (`fk_move` ASC) VISIBLE,
-  INDEX `fk_generation_has_move_generation1_idx` (`fk_generation` ASC) VISIBLE,
-  CONSTRAINT `fk_generation_has_move_generation1`
-    FOREIGN KEY (`fk_generation`)
-    REFERENCES `pokemon`.`generation` (`pk_generation`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_generation_has_move_move1`
-    FOREIGN KEY (`fk_move`)
-    REFERENCES `pokemon`.`move` (`pk_move`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `pokemon`.`generation_has_pokemon_species`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `pokemon`.`generation_has_pokemon_species` ;
-
-CREATE TABLE IF NOT EXISTS `pokemon`.`generation_has_pokemon_species` (
-  `fk_generation` INT NOT NULL,
-  `fk_pokemon_species` INT NOT NULL,
-  PRIMARY KEY (`fk_generation`, `fk_pokemon_species`),
-  INDEX `fk_generation_has_pokemon_species_pokemon_species1_idx` (`fk_pokemon_species` ASC) VISIBLE,
-  INDEX `fk_generation_has_pokemon_species_generation1_idx` (`fk_generation` ASC) VISIBLE,
-  CONSTRAINT `fk_generation_has_pokemon_species_generation1`
-    FOREIGN KEY (`fk_generation`)
-    REFERENCES `pokemon`.`generation` (`pk_generation`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_generation_has_pokemon_species_pokemon_species1`
-    FOREIGN KEY (`fk_pokemon_species`)
-    REFERENCES `pokemon`.`pokemon_species` (`pk_pokemon_species`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `pokemon`.`type_has_generation`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `pokemon`.`type_has_generation` ;
-
-CREATE TABLE IF NOT EXISTS `pokemon`.`type_has_generation` (
+CREATE TABLE IF NOT EXISTS `pokemon`.`type_is_in_generation` (
+  `pk_type_is_in_generation` INT NOT NULL AUTO_INCREMENT,
   `fk_type` INT NOT NULL,
   `fk_generation` INT NOT NULL,
-  PRIMARY KEY (`fk_type`, `fk_generation`),
+  PRIMARY KEY (`pk_type_is_in_generation`),
   INDEX `fk_type_has_generation_generation1_idx` (`fk_generation` ASC) VISIBLE,
   INDEX `fk_type_has_generation_type1_idx` (`fk_type` ASC) VISIBLE,
   CONSTRAINT `fk_type_has_generation_type1`

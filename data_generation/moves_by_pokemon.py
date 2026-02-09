@@ -1,20 +1,24 @@
 from data_generation import utils
-from pathlib import Path
+from typing import Any
+JSON = dict[str, Any] | list[Any] | str | int | float | bool | None
 
-def find_move_index(moves, move_name):
-    found = False
-    i = 0
-    while (not found and i < len(moves)):
-        move = moves[i]["move"]
-        if (move["name"].lower() == move_name.lower()):
-            found = True
-        else:
-            i += 1
+def find_move_index(moves: JSON, move_name: str) -> int:
+    '''
+    Returns the index of the move specified by move_name. If it's not found, it returns -1.
+    
+    Args:
+        moves (JSON): A JSON file containing moves.
+        move_name (str): The move's name.
 
-    if not found:
-        i = -1
+    Returns:
+        int:
+    '''
+    index = next((i for i, x in enumerate(moves) if x["move"]["name"] == move_name), None)
 
-    return i
+    if index is not None:
+        return index
+    else:
+        return -1
 
 
 def insert_learned_moves(cur, generation_number, moves_directory, pokemon_directory):    
