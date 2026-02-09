@@ -43,28 +43,33 @@ Right now, the database can answer questions such as when does a specific Pokém
 
 It also includes some information about how moves have changed over time (see implementation notes) and some flags. The flags are useful to store specific information that goes beyond basic parameters like power or accuracy.
 
-Additionally, it includes items and their availability across some generations (see implementation notes).
+Additionally, it includes items, abilities and their availability across some generations (see implementation notes).
 
 Some refactoring was done after adding items and abilities to the database.
 
+Natures and gender ratios were added.
+
 ## Acomplished tasks in the last commit
 
-    • Refactor: cleaned up duplicate and redundant code, introduced global constants, added some docstrings in utils.py and all the 
-    data is now cached in the same directory
+- Natures and the gender ratios for each Pokémon.
 
 ## To Do
 
     • Create a small script to run both Pokémon.sql and views.sql.
     • Insert whether or not the forms are switchable in combat. For exmaple, Rotom cannot change forms 
     in the middle of combat, but Meloetta and Darmanitan both can.
-    • Insert the Pokémon gender ratios.
-    • Insert natures.
     • Insert some abilities availability changes. For instance, Gengar lost Levitate in Gen VII. 
     Reflect that change in the database. 
     • Create tables for managing Pokémon teams and trainers.
 
-    • Some more refactoring. Mainly to improve readability, consistency and performance. 
-    Implementing a more robust approach to handle requests and multi-threading is also planned.
+    • More refactoring. Mainly to improve readability, consistency and performance. Also to clean 
+    up some duplicate code and encapsulate repeated select and insert operations in a single function 
+    (one for each).
+    
+    • Fix some inconsistencies in the database. All tables representing a relationship will feature
+    a single primary key.
+
+    • Implementing a more robust approach to handle requests and multi-threading is also planned.
 
 ## Future work
 

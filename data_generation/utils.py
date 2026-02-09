@@ -7,19 +7,7 @@ from mysql.connector.cursor import MySQLCursor
 
 JSON = dict[str, Any] | list[Any] | str | int | float | bool | None
 GENERATIONS_DIRECTORY = Path("./cache/generations/")
-
-def create_scripts(scripts_directory, script_names):
-    script_paths = []
-    if not scripts_directory.is_dir():
-        scripts_directory.mkdir(exist_ok=True)
-        
-    for i in range(0, len(script_names)):
-        script_path = scripts_directory / f"{script_names[i]}.sql"
-        with open(script_path, "w", encoding='utf-8') as script:
-            script.close
-        script_paths.append(script_path)
-    
-    return script_paths
+POKEAPI_BASE_URL = "https://pokeapi.co/api/v2/"
     
 def read_from_json_file(file_path: Path) -> JSON:
     '''
@@ -44,26 +32,10 @@ def create_json_file(file_path: Path, data):
     with open(file_path, "w") as type_file:
         type_file.write(json_type)
 
-def write_header(file, header):
-    with open(file, "a") as f:
-        f.write(header)
-
-def write_query_to_file(file, query):
-    with open(file, "a", encoding="utf-8") as f:
-        f.write(query)
-        f.write("\n")
-
-def write_blank_line(file):
-    with open(file, "a") as f:
-        f.write("\n")
-
-def write_ending_blank_lines(file):
-    with open(file, "a") as f:
-        f.write("\n\n")
-
 def process_url(url: str, name: str, name_id: Any) -> JSON:
     '''
     Performs the GET request to retrieve the necessary data corresponding to that entity name and that id.
+    name and name_id are both used only in the exception message.
     
     Args:
         url (str): The endpoint from which the data will be requested.
@@ -73,6 +45,7 @@ def process_url(url: str, name: str, name_id: Any) -> JSON:
     Returns:
         JSON: The JSON file that contains the requested data.
     '''
+    time.sleep(0.6) # Limits the frequency of requests
     response = requests.get(url)
         
     if response.status_code != 200:
@@ -112,12 +85,11 @@ def create_directory_and_return_data(directory: Path, identifier: Any) -> JSON:
 
     Args:
         directory (Path): The directory where the JSON file should be.
-        identifier (Any): The file identifier (name or number)
+        identifier (Any): The filejiu identifier (name or number)
 
     Returns:
         JSON: The JSON file that contains the requested data.
     '''
-
     file_path = directory / f"{identifier}.json"
 
     directory.mkdir(exist_ok=True)
@@ -128,25 +100,93 @@ def create_directory_and_return_data(directory: Path, identifier: Any) -> JSON:
         entity = get_entity_from_directory(directory)
         url = f"https://pokeapi.co/api/v2/{entity}/{identifier}"
 
-        time.sleep(0.6)
         data = process_url(url, entity, identifier)
         
         create_json_file(file_path, data)
     
     return data
 
-def create_item_directory_and_return_data(directory, entity, item_name, item_url):
-    file_path = directory / f"{entity}_{item_name}.json"
+# This one existes even though it's very similar to the previous one because there are some items
+# whose names are not processed correctly by PokéAPI and it also deals with retrieving data from
+# endpoints that return a results list containing all objects (items, natures...)
+def create_entity_directory_and_return_data(directory: Path, entity: str, name: str, item_url: str) -> JSON:
+    '''
+    Uses the directory, entity and identifier to look for the corresponding JSON file.
+    If the file is not found, it requests it from the primary source using the item_url argument.
+
+    Args:
+        directory (Path): The directory where the JSON file should be.
+        entity (str): The entity's name
+        name (str): The object's name
+        item_url (str): URL used to retrieve the the object.
+
+    Returns:
+        JSON: The JSON file that contains the requested data.
+    '''
+    file_path = directory / f"{entity}_{name}.json"
 
     if directory.is_dir() and file_path.is_file():
             data = read_from_json_file(file_path)
     else:
         url = item_url
 
-        time.sleep(0.6)
-        data = process_url(url, entity, item_name)
+        data = process_url(url, entity, name)
         
+        directory.mkdir(exist_ok=True)
+
         create_json_file(file_path, data)
+    return data
+
+def get_entity_data(entity_name) -> list:
+    '''
+    Uses the name of a PokéAPI entity (type, nature, pokemon, pokemon-species...) to retrieve all its contents.
+    
+    Args:
+        entity (str): The entity's name
+
+    Returns:
+        list: A list containing all objects. Each object has two fields: name and URL.
+    '''
+    entity_url = POKEAPI_BASE_URL + f"{entity_name}/"
+    total = -1
+    progress = 0
+    result_list = []
+    while entity_url:
+        entity = process_url(entity_url, entity_name, "unknown")
+        if total < 0:
+            total = entity["count"]
+        collection = entity["results"]
+        result_list.extend(collection)
+
+        entity_url = entity["next"]
+        progress += 20
+        if progress > total:
+            progress = total
+        print(f"Progress {entity_name}: {progress} / {total}")
+
+    return result_list
+
+def get_entire_pokedex(url, directory, json_file_name) -> JSON:
+    '''
+    Returns a JSON file containing all Pokémon. 
+    If the file is not found in its directory, it is requested and stored in said directory.
+    
+    Args:
+        url (str): The Pokédex' URL.
+        directory (str): The Pokédex' directory
+        json_file_name: The Pokédex' JSON file name
+
+    Returns:
+        JSON: A JSON file.
+    '''
+    file_path = directory / json_file_name
+    if directory.is_dir() and file_path.is_file():
+            data = read_from_json_file(file_path)
+    else:
+        directory.mkdir(exist_ok=True)
+        data = process_url(url, "pokedex", "pokedex")
+        create_json_file(file_path, data)
+
     return data
 
 def get_generation_data(generation_number: int) -> JSON:
@@ -188,8 +228,8 @@ def get_pk_by_name(cur: MySQLCursor, entity: str, name: str) -> int:
         int: The primary key belonging to the selected row.
     '''
 
-    if name == "unknown":
-        name = "???"
+    # if name == "unknown" and entity == "type":
+    #     name = "???"
 
     cur.execute(f"SELECT pk_{entity} FROM pokemon.{entity} WHERE name = %s", (name,))
     result = cur.fetchone()

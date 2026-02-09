@@ -105,7 +105,7 @@ DROP TABLE IF EXISTS `pokemon`.`stats_type` ;
 
 CREATE TABLE IF NOT EXISTS `pokemon`.`stats_type` (
   `pk_stats_type` INT NOT NULL AUTO_INCREMENT,
-  `type` VARCHAR(45) NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`pk_stats_type`))
 ENGINE = InnoDB;
 
@@ -520,12 +520,13 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `pokemon`.`form_has_gender` ;
 
 CREATE TABLE IF NOT EXISTS `pokemon`.`form_has_gender` (
+  `pk_form_has_gender` INT NOT NULL AUTO_INCREMENT,
   `fk_form` INT NOT NULL,
   `fk_gender` INT NOT NULL,
   `rate` FLOAT NULL,
-  PRIMARY KEY (`fk_form`, `fk_gender`),
   INDEX `fk_form_has_gender_gender1_idx` (`fk_gender` ASC) VISIBLE,
   INDEX `fk_form_has_gender_form1_idx` (`fk_form` ASC) VISIBLE,
+  PRIMARY KEY (`pk_form_has_gender`),
   CONSTRAINT `fk_form_has_gender_form1`
     FOREIGN KEY (`fk_form`)
     REFERENCES `pokemon`.`form` (`pk_form`)

@@ -2,30 +2,28 @@ import time
 from pathlib import Path
 from data_generation import utils
 
-def get_generation_data(number, directory):
+def insert_generation(cur, index, directory):
 
-    data = utils.create_directory_and_return_data(directory, number)
+    try:
+        data = utils.create_directory_and_return_data(directory, index)
 
-    games = data["version_groups"]
-    first_games = games[0] ["name"]
-    main_region = data["main_region"]["name"]
+        games = data["version_groups"]
+        first_games = games[0] ["name"]
+        main_region = data["main_region"]["name"]
 
-    return (number, main_region, first_games)
+        generation_data = (index, main_region, first_games)
 
-def insert_generations(cur, script, upper_limit, directory):
-    header = "-- GENERATION\n-- GENERATION\n-- GENERATION\n\n"
-    utils.write_header(script, header)
+        cur.execute("INSERT INTO pokemon.generation (number, main_region, games) " \
+                    "VALUES (%s, %s, %s)", generation_data)
+        # print(cur.lastrowid)
+        print(f"✅ Inserting generation #{index}: {main_region}")
 
-    for i in range(1, upper_limit):  
-        try:
-            data = get_generation_data(i, directory)
-            cur.execute(" INSERT INTO pokemon.generation (number, main_region, games)\nVALUES (%s, %s, %s)", data)
-            print(f"✅ Inserting generation #{i}: {data[0]}")
+    except Exception as e:
+        print(f"❌ Error inserting generation #{index}: {e}")
 
-            query = f"INSERT INTO pokemon.generation (number, main_region, games)\nVALUES ({data[0]}, '{data[1]}', '{data[2]}');"
-            utils.write_query_to_file(script, query)
+def insert_generations(cur, directory):
 
-        except Exception as e:
-            print(f"❌ Error with generation #{i}: {e}")
+    generations = utils.get_entity_data("generation")
 
-    utils.write_ending_blank_lines(script)
+    for i in range(1, len(generations) + 1):
+        insert_generation(cur, i, directory)

@@ -16,6 +16,37 @@ MEGA_DIMENSION_MEGAS = ["raichu-mega-x", "raichu-mega-y", "chimecho-mega", "abso
                         "zeraora-mega", "scovillain-mega", "glimmora-mega", "tatsugiri-curly-mega",
                         "tatsugiri-droopy-mega", "tatsugiri-stretchy-mega", "baxcalibur-mega"]
 
+GENDERS = {
+    "M": "male",
+    "F": "female",
+    "N": "unknown"
+}
+
+def insert_gender_relationship(cur, gender_name, rate, form_id):
+    gender_id = utils.get_pk_by_name(cur, "gender", gender_name)
+    gender_relationship_tuple = (form_id, gender_id, rate)
+    cur.execute("INSERT INTO pokemon.form_has_gender (fk_form, fk_gender, rate) " \
+                "VALUES (%s, %s, %s)", gender_relationship_tuple)
+    
+def insert_genders(cur, form_id, pokedex, showdown_name):
+    if (showdown_name in pokedex.keys()):
+        pokemon = pokedex[showdown_name]
+        gender_or_genders = pokemon.get("gender")
+        gender_ratio = pokemon.get("genderRatio")
+
+        if (gender_ratio is not None):
+            for gender_key, gender_value in gender_ratio.items():
+                insert_gender_relationship(cur, GENDERS[gender_key], gender_value, form_id)
+        elif (gender_or_genders == "M"):
+            insert_gender_relationship(cur, GENDERS["M"], 1, form_id)
+        elif (gender_or_genders == "F"):
+            insert_gender_relationship(cur, GENDERS["F"], 1, form_id)
+        elif (gender_or_genders == "N"):
+            insert_gender_relationship(cur, GENDERS["N"], 1, form_id)
+        elif (gender_or_genders is None):
+            insert_gender_relationship(cur, GENDERS["M"], 0.5, form_id)
+            insert_gender_relationship(cur, GENDERS["F"], 0.5, form_id)
+
 def adapt_generation_number(name):
     if (name == 'meganium'):
         return 2 # Meganium is a Gen 2 Pokémon
@@ -31,16 +62,13 @@ def adapt_generation_number(name):
     elif ('galar' in name or 'gmax' in name or 'hisui' in name):
         return 8 # All Galar, Gigantamax and Hisuian forms were introduced in Gen 8
     elif ('paldea' in name):
-        return 9 # All Paldean forms were introdcued in Gen 9
+        return 9 # All Paldean forms were introduced in Gen 9
     else:
         return 0 # The generation number does not change in any other scenario
 
-def insert_pokemon_form_type(cur, script, tuple):
+def insert_pokemon_form_type(cur, tuple):
     cur.execute("INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation, is_primary)\n" \
                 "VALUES (%s, %s, %s, %s)", tuple)
-    query = f"INSERT INTO pokemon.form_has_type_per_generation (fk_form, fk_type, fk_generation, is_primary)\n" \
-            f"VALUES {tuple};"
-    utils.write_query_to_file(script, query)
 
 def iterate_forms(varieties):
     form_names = []
@@ -51,7 +79,7 @@ def iterate_forms(varieties):
     
     return form_names
 
-def insert_pokemon_stats(cur, script, stats, form_id, generation_number):
+def insert_pokemon_stats(cur, stats, form_id, generation_number):
 
     base_stats = []
     for j in range(0, len(stats)):
@@ -69,34 +97,21 @@ def insert_pokemon_stats(cur, script, stats, form_id, generation_number):
     cur.execute("INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, " \
                 "base_special_defense, base_speed, fk_generation, fk_form)\n" \
                 "VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", query_tuple)
-    query = f"INSERT INTO pokemon.base_stats (base_hp, base_attack, base_defense, base_special_attack, " \
-             "base_special_defense, base_speed, fk_generation, fk_form)\n" \
-            f"VALUES {query_tuple};"
-    utils.write_query_to_file(script, query)
 
-def insert_form(cur, script, form_tuple):
+def insert_form(cur, form_tuple):
     cur.execute("INSERT INTO pokemon.form (name, is_default, fk_pokemon_species, height, weight, " \
                 "legacy_cry, latest_cry, artwork, shiny_artwork)" \
                 "\nVALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", form_tuple)
-    query = "INSERT INTO pokemon.form (name, is_default, fk_pokemon_species, height, weight, " \
-            "legacy_cry, latest_cry, artwork, shiny_artwork)\n" \
-            f"VALUES {form_tuple};"
-    utils.write_query_to_file(script, query)
     return cur.lastrowid
 
-def insert_pokemon_species(cur, script, species_tuple):
+def insert_pokemon_species(cur, species_tuple):
     cur.execute("INSERT INTO pokemon.pokemon_species (name, pokedex_index, is_baby, is_legendary, is_mythical, evolves_from)\n" \
     "VALUES (%s, %s, %s, %s, %s, %s)", species_tuple)
-    query = f"INSERT INTO pokemon.pokemon_species (name, pokedex_index, is_baby, is_legendary, is_mythical, evolves_from)\n" \
-            f"VALUES {species_tuple};"
-    utils.write_query_to_file(script, query)
+
     cur.execute("SELECT * FROM pokemon.pokemon_species WHERE name = %s", (species_tuple[0],))
     return cur.fetchone()[0]
 
-def insert_pokemon(cur, script, generation_number, pokemon_species_directory, pokemon_forms_directory):
-    header = "-- POKEMON-SPECIES, FORMS, ITS TYPES AND BASE_STATS\n-- POKEMON-SPECIES, FORMS, ITS TYPES AND BASE_STATS\n-- POKEMON-SPECIES, FORMS, ITS TYPES AND BASE_STATS\n"
-    utils.write_header(script, header)
-
+def insert_pokemon(cur, generation_number, pokemon_species_directory, pokemon_forms_directory, pokedex_directory, showdown_url):
     generation = utils.get_generation_data(generation_number)
     number_of_pokemon = len(generation["pokemon_species"]) 
     aux_generation_number = 0 # Useful when dealing with forms introduced later than the base form
@@ -118,7 +133,7 @@ def insert_pokemon(cur, script, generation_number, pokemon_species_directory, po
 
         # Inserts the Pokemon and obtain its id, useful when creating relationships
         species_tuple = (pokemon_species_name, pokemon_species_id, is_baby, is_legendary, is_mythical, evolves_from)
-        pokemon_species_id_in_db = insert_pokemon_species(cur, script, species_tuple)
+        pokemon_species_id_in_db = insert_pokemon_species(cur, species_tuple)
 
         varieties = species["varieties"]
         form_names = iterate_forms(varieties)
@@ -142,15 +157,15 @@ def insert_pokemon(cur, script, generation_number, pokemon_species_directory, po
             # Inserts the Pokémon form 
             form_tuple = (current_form_name, is_default, pokemon_species_id_in_db, height, weight, 
                           legacy_cry, latest_cry, artwork, shiny_artwork)
-            form_id = insert_form(cur, script, form_tuple)
+            form_id = insert_form(cur, form_tuple)
             
             # A Pokémon form may be introduced later than the base form
             aux_generation_number = adapt_generation_number(current_form_name)
 
             if aux_generation_number > 0:
-                insert_pokemon_stats(cur, script, current_form["stats"], form_id, aux_generation_number)
+                insert_pokemon_stats(cur, current_form["stats"], form_id, aux_generation_number)
             else:
-                insert_pokemon_stats(cur, script, current_form["stats"], form_id, generation_number)
+                insert_pokemon_stats(cur, current_form["stats"], form_id, generation_number)
 
             aux_generation_number = adapt_generation_number(current_form_name)
             for i in range(0, len(current_form["types"])):
@@ -163,10 +178,12 @@ def insert_pokemon(cur, script, generation_number, pokemon_species_directory, po
 
                 if aux_generation_number > 0:
                     type_tuple = (form_id, pk_type, aux_generation_number, is_primary)
-                    insert_pokemon_form_type(cur, script, type_tuple)
+                    insert_pokemon_form_type(cur, type_tuple)
                 else:
                     type_tuple = (form_id, pk_type, generation_number, is_primary)
-                    insert_pokemon_form_type(cur, script, type_tuple)
+                    insert_pokemon_form_type(cur, type_tuple)
+        
             
-            utils.write_blank_line(script)
-    utils.write_ending_blank_lines(script)
+            pokedex = utils.get_entire_pokedex(showdown_url, pokedex_directory, "pokedex.json")
+            normalized_name = current_form_name.lower().replace("-", "")
+            insert_genders(cur, form_id, pokedex, normalized_name)

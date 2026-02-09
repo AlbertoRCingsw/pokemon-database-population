@@ -2,6 +2,7 @@ from pathlib import Path
 import time as t
 import db
 from data_generation import utils
+from data_generation import gender_stat_type
 from data_generation import types_data
 from data_generation import generations_data
 from data_generation import type_generation_relationship
@@ -13,6 +14,7 @@ from data_generation import stat_type_changes
 from data_generation import moves_data
 from data_generation import items_data
 from data_generation import abilities_data
+from data_generation import natures
 
 from dotenv import load_dotenv
 import os
@@ -20,73 +22,67 @@ import os
 load_dotenv(".env")
 
 # Important constants
-SHOWDOWN_URL = 'https://play.pokemonshowdown.com/data/moves.json'
+SHOWDOWN_MOVES_URL = "https://play.pokemonshowdown.com/data/moves.json"
+SHOWDOWN_POKEDEX_URL = "https://play.pokemonshowdown.com/data/pokedex.json"
+POKEAPI_BASE_URL = "https://pokeapi.co/api/v2/"
+
 UPPER_TYPES_LIMIT = 19 # 1 + the number of types -> loops
 UPPER_GENERATIONS_LIMIT = 10 # 1 + the number of generations -> loops
-SCRIPTS_DIRECTORY = Path("./scripts")
 
-CACHE_DIRECTORY = os.getenv("CACHE_DIR")
-TYPES_DIRECTORY = Path(CACHE_DIRECTORY + "types/")
-GENERATIONS_DIRECTORY = Path(CACHE_DIRECTORY + "generations/")
-POKEMON_SPECIES_DIRECTORY = Path(CACHE_DIRECTORY + "pokemon-species/")
-POKEMON_FORMS_DIRECTORY = Path(CACHE_DIRECTORY + "pokemon/")
-MOVES_DIRECTORY = Path(CACHE_DIRECTORY + "moves/")
-ITEMS_DIRECTORY = Path(CACHE_DIRECTORY + "items/")
-ABILITIES_DIRECTORY = Path(CACHE_DIRECTORY + "abilities/")
+CACHE_DIRECTORY = Path(os.getenv("CACHE_DIR"))
+TYPES_DIRECTORY = CACHE_DIRECTORY / "types/"
+GENERATIONS_DIRECTORY = CACHE_DIRECTORY / "generations/"
+POKEMON_SPECIES_DIRECTORY = CACHE_DIRECTORY / "pokemon-species/"
+POKEMON_FORMS_DIRECTORY = CACHE_DIRECTORY / "pokemon/"
+MOVES_DIRECTORY = CACHE_DIRECTORY / "moves/"
+ITEMS_DIRECTORY = CACHE_DIRECTORY / "items/"
+ABILITIES_DIRECTORY = CACHE_DIRECTORY / "abilities/"
+NATURES_DIRECTORY = CACHE_DIRECTORY / "natures/"
 
 # Open connection to the database
 conn = db.connect_to_db()
 cur = conn.cursor()
 
-# Creates the scripts directory and the empty scripts
-names = ['type', 'generation', 'type_generation_relationship', 'version_group', 'pokemon', 'move', 'learned_moves']
-script_names = utils.create_scripts(SCRIPTS_DIRECTORY, names)
-
 t_0 = t.time() # To check the execution time
 
+# Inserts genders and stats types
+# There are three possible genders: male, female and unknown
+# There are two stats types: ev and iv
+gender_stat_type.insert_genders_and_stats_types(cur)
+
 # Insert the types
-type_script = script_names[0]
-types_data.insert_types(cur, type_script, UPPER_TYPES_LIMIT, 
-                        TYPES_DIRECTORY)
+types_data.insert_types(cur, TYPES_DIRECTORY)
 
 # Insert the generations
-generations_script = script_names[1]
-generations_data.insert_generations(cur, generations_script, UPPER_GENERATIONS_LIMIT, 
-                                    GENERATIONS_DIRECTORY)
+generations_data.insert_generations(cur, GENERATIONS_DIRECTORY)
 
 # Get the names of the types per generation
-type_generation_relationship_script = script_names[2]
-type_generation_relationship.perform_insertion(cur, type_generation_relationship_script, UPPER_GENERATIONS_LIMIT)
+type_generation_relationship.perform_insertion(cur, 
+                                               UPPER_GENERATIONS_LIMIT)
 
 # Insert the version groups of each generation
-version_group_script = script_names[3]
-version_groups_data.insert_version_groups(cur, version_group_script, UPPER_GENERATIONS_LIMIT,
-                                          GENERATIONS_DIRECTORY)
-
-pokemon_script = script_names[4]
-moves_script = script_names[5]
-learned_moves_script = script_names[6]
-
-print('pokemon')
+version_groups_data.insert_version_groups(cur,
+                                          UPPER_GENERATIONS_LIMIT, GENERATIONS_DIRECTORY)
 
 # Inserts the pokemon
 for generation_number in range(1, UPPER_GENERATIONS_LIMIT):
-    pokemon_data.insert_pokemon(cur, pokemon_script, generation_number,
-                                POKEMON_SPECIES_DIRECTORY, POKEMON_FORMS_DIRECTORY)
+    pokemon_data.insert_pokemon(cur, generation_number,
+                                POKEMON_SPECIES_DIRECTORY, POKEMON_FORMS_DIRECTORY, 
+                                CACHE_DIRECTORY, SHOWDOWN_POKEDEX_URL)
 # Inserts the moves
 for generation_number in range(1, UPPER_GENERATIONS_LIMIT):
-    moves_data.insert_moves(cur, generation_number, SHOWDOWN_URL, 
+    moves_data.insert_moves(cur, generation_number, SHOWDOWN_MOVES_URL, 
                            MOVES_DIRECTORY)
 
 # Inserts the relationship form_learned_moves
 # It represents the move learned by the pokemon in each generation
 for generation_number in range(1, UPPER_GENERATIONS_LIMIT):
-    moves_by_pokemon.insert_learned_moves(cur, learned_moves_script, generation_number, 
+    moves_by_pokemon.insert_learned_moves(cur, generation_number, 
                                           MOVES_DIRECTORY, POKEMON_FORMS_DIRECTORY)
 
 db.commit_data(conn)
 
-# Perform web scraping to obtain the special stat for each Pokémon 
+# Performs web scraping to obtain the special stat for each Pokémon 
 # Inserts it in the database
 pokemon_special_stat.insert_special_stat(cur)
 
@@ -97,15 +93,15 @@ stat_type_changes.stat_changes(cur)
 # Inserts items
 items_data.insert_items(cur, ITEMS_DIRECTORY)
 
-db.commit_data(conn)
-
 # Inserts abilities and their relationship with Pokémon
 for i in range(1, UPPER_GENERATIONS_LIMIT):
     abilities_data.insert_abilities(cur, i, ABILITIES_DIRECTORY)
 
 # Abilities history
-# Gender ratios
-# Natures
+
+# Inserts natures
+natures.insert_natures(cur, NATURES_DIRECTORY)
+
 # Teams
 # Trainers
 

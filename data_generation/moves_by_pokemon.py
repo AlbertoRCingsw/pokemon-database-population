@@ -17,10 +17,7 @@ def find_move_index(moves, move_name):
     return i
 
 
-def insert_learned_moves(cur, script, generation_number, moves_directory, pokemon_directory):    
-    header = "-- MOVES_LEARNED\n-- MOVES_LEARNED\n-- MOVES_LEARNED\n\n"
-    utils.write_header(script, header)
-
+def insert_learned_moves(cur, generation_number, moves_directory, pokemon_directory):    
     generation_data = utils.get_generation_data(generation_number)
 
     generation_moves_list = generation_data["moves"] # Moves introduced in that generation
@@ -61,11 +58,7 @@ def insert_learned_moves(cur, script, generation_number, moves_directory, pokemo
                     learned_move_data = (fk_form, fk_move, fk_version_group, method, level)
 
                     cur.execute("INSERT INTO pokemon.form_learned_moves (fk_form, fk_move, fk_version_group, method, level)\nVALUES (%s, %s, %s, %s, %s)", learned_move_data)
-                    query = "INSERT INTO pokemon.form_learned_moves (fk_form, fk_move, fk_version_group, method, level)\nVALUES " + str(learned_move_data) + ";"
-                    utils.write_query_to_file(script, query)
                     print("✅ New row inserted in form_learned_moves")
-
-    utils.write_ending_blank_lines(script)
 
 
 

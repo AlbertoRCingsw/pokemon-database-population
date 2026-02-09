@@ -49,4 +49,4 @@ def insert_abilities(cur, generation_number, abilities_directory):
             cur.execute("INSERT INTO pokemon.form_has_ability (fk_ability, fk_form, slot, is_hidden) " \
                         "VALUES (%s, %s, %s, %s)", (ability_id, form_id, slot, is_hidden))
 
-        print(f"Finished with ability: {ability_name}")
+        print(f"✅ Finished with ability: {ability_name}")

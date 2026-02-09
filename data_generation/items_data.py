@@ -17,7 +17,7 @@ GENERATIONS = {
 
 def insert_item(cur, item, directory):
 
-    item_json = utils.create_item_directory_and_return_data(directory, "item", item["name"], item["url"])
+    item_json = utils.create_entity_directory_and_return_data(directory, "item", item["name"], item["url"])
     item_name = item_json["name"]
 
     # The description will be the first english description in effect_entries
@@ -59,8 +59,10 @@ def insert_items(cur, items_directory):
     url = "https://pokeapi.co/api/v2/item/"
     
     progress = 0
+    total = 0
     while url:
         items = utils.process_url(url, "item", 0)
+        total = items["count"]
         items_collection = items["results"]
 
         for i in range(0, len(items_collection)):
@@ -68,4 +70,4 @@ def insert_items(cur, items_directory):
         
         url = items["next"]
         progress += 20
-        print(f"Progress: {progress}")
+        print(f"Progress: {progress} / {total}")
