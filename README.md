@@ -58,6 +58,7 @@ even if they stored data, their data could be inferred.
 - All tables in the database now feature a primary key that is not a combination of multiple
 foreign keys.
 - Created fixes.py. See the "Implementation notes" section.
+- Removed all code pertaining to the automated SQL scripts generation. See the "Implementation notes" section.
 
 ## To Do
 
