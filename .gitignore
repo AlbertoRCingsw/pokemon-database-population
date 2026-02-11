@@ -9,22 +9,6 @@ pokemon2/
 # System files
 .DS_Store
 
-# Directories
-cache/
-generations/
-moves/
-pokemon/
-pokemon-species/
-scripts/
-types/
-
 # Files
-*.sql
-*.bat
-*.bak
-*.txt
 .env
 test_main.py
-
-!pokemon_db_script.sql
-!views.sql

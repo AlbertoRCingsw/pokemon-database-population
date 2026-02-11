@@ -1,6 +1,4 @@
 from data_generation import utils
-from pathlib import Path
-
 
 def insert_ability(cur, ability_name, generation_number, ability_description):  
     cur.execute("INSERT INTO pokemon.ability (name, fk_generation, description) " \
@@ -46,7 +44,7 @@ def insert_abilities(cur, generation_number, abilities_directory):
 
             is_hidden = ability_json["pokemon"][j]["is_hidden"]
             slot = ability_json["pokemon"][j]["slot"]
-            cur.execute("INSERT INTO pokemon.form_has_ability (fk_ability, fk_form, slot, is_hidden) " \
-                        "VALUES (%s, %s, %s, %s)", (ability_id, form_id, slot, is_hidden))
+            cur.execute("INSERT INTO pokemon.form_has_ability (fk_ability, fk_form, fk_generation, slot, is_hidden) " \
+                        "VALUES (%s, %s, %s, %s, %s)", (ability_id, form_id, generation_number, slot, is_hidden))
 
         print(f"✅ Finished with ability: {ability_name}")

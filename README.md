@@ -33,6 +33,18 @@ The design is changing as the database is populated to better adapt to the extra
 
 - Generation is vital to the database becaause it allows it to store different versions of things like base stats, move versions, abilities...
 
+## Running the project
+
+Tested with Python 3.11.9 and MySQL 8.0
+
+In the project's root directory in Windows, the database can be created using the create_db.bat script. This file retrieves the username, the password and SQL scripts from the scripts directory. These are all variables that are defined in a .env file, so they must be adapted to their value in the user's system.
+
+The .env file contains the following constants: DB_USER, DB_PASSWORD, DB_NAME, DB_HOST, SCRIPTS_PATH and CACHE_DIR, this last one having the relative path ./cache/
+
+After creating the database, the main.py file should be run from the project's root directory.
+
+The project performs a large amount of requests, so a delay is intentionally introduced in the process_url function (inside utils.py) to avoid overwhelming the servers. Not using the cache will result in a significantly longer runtime, which sits at around 12 minutes using it in the test environment.
+
 ## State of development
 
 Successfully retrieved generations, types, Pokémon, which types belong to which generations, moves and the moves each Pokémon is able to learn in each generation, along with the corresponding learning method. Also, used web scraping to obtain the base special stat value for each Gen I Pokémon. The latest addition was the typing and base stats change data, because some Pokémon's typing or base stats changed in a generational transition.
@@ -47,21 +59,16 @@ Some refactoring was done after adding items and abilities to the database.
 
 Natures and gender ratios were added.
 
-## Acomplished tasks in the last commit
+Some clean up was done: updated find_move_index in moves_by_pokemon, improved docstrings in utils.py, removed redundant tables and made sure that no table has a composite primary key.
+
+## Accomplished tasks in the last commit
 
 Some clean up: 
 
-- find_move_by_index function in moves_by_pokemon.py and added a docstring
-- Finished adding docstrings in utils.py
-- Deleted some empty tables in the database. Those tables were deemed unnecessary because
-even if they stored data, their data could be inferred.
-- All tables in the database now feature a primary key that is not a combination of multiple
-foreign keys.
-- Created fixes.py. See the "Implementation notes" section.
+- Created the create_db.bat file.
 
 ## To Do
 
-    • Create a small script to run both pokemon_db_script.sql and views.sql.
     • Retrieve a sprite for each type.
     • Insert whether or not the forms are switchable in combat. For instance, Rotom cannot change forms 
     in the middle of combat, but both Meloetta and Darmanitan can.
