@@ -21,19 +21,40 @@ CREATE SCHEMA IF NOT EXISTS `pokemon` DEFAULT CHARACTER SET utf8 ;
 USE `pokemon` ;
 
 -- -----------------------------------------------------
+-- Table `pokemon`.`generation`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pokemon`.`generation` ;
+
+CREATE TABLE IF NOT EXISTS `pokemon`.`generation` (
+  `pk_generation` INT NOT NULL AUTO_INCREMENT,
+  `number` INT NOT NULL,
+  `main_region` VARCHAR(50) NULL,
+  `games` VARCHAR(128) NULL,
+  PRIMARY KEY (`pk_generation`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `pokemon`.`pokemon_species`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `pokemon`.`pokemon_species` ;
 
 CREATE TABLE IF NOT EXISTS `pokemon`.`pokemon_species` (
   `pk_pokemon_species` INT NOT NULL AUTO_INCREMENT,
+  `fk_generation` INT NULL,
   `name` VARCHAR(128) NOT NULL,
   `pokedex_index` INT NOT NULL,
   `is_baby` TINYINT NULL,
   `is_legendary` TINYINT NULL,
   `is_mythical` TINYINT NULL,
   `evolves_from` VARCHAR(128) NULL,
-  PRIMARY KEY (`pk_pokemon_species`))
+  PRIMARY KEY (`pk_pokemon_species`),
+  INDEX `fk_pokemon_species_generation1_idx` (`fk_generation` ASC) VISIBLE,
+  CONSTRAINT `fk_pokemon_species_generation1`
+    FOREIGN KEY (`fk_generation`)
+    REFERENCES `pokemon`.`generation` (`pk_generation`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -45,6 +66,7 @@ DROP TABLE IF EXISTS `pokemon`.`form` ;
 CREATE TABLE IF NOT EXISTS `pokemon`.`form` (
   `pk_form` INT NOT NULL AUTO_INCREMENT,
   `fk_pokemon_species` INT NOT NULL,
+  `fk_generation` INT NULL,
   `name` VARCHAR(45) NOT NULL,
   `height` INT NULL,
   `weight` INT NULL,
@@ -56,25 +78,17 @@ CREATE TABLE IF NOT EXISTS `pokemon`.`form` (
   `shiny_artwork` VARCHAR(200) NULL,
   PRIMARY KEY (`pk_form`),
   INDEX `fk_form_pokemon_species1_idx` (`fk_pokemon_species` ASC) VISIBLE,
+  INDEX `fk_form_generation1_idx` (`fk_generation` ASC) VISIBLE,
   CONSTRAINT `fk_form_pokemon_species1`
     FOREIGN KEY (`fk_pokemon_species`)
     REFERENCES `pokemon`.`pokemon_species` (`pk_pokemon_species`)
     ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_form_generation1`
+    FOREIGN KEY (`fk_generation`)
+    REFERENCES `pokemon`.`generation` (`pk_generation`)
+    ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `pokemon`.`generation`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `pokemon`.`generation` ;
-
-CREATE TABLE IF NOT EXISTS `pokemon`.`generation` (
-  `pk_generation` INT NOT NULL AUTO_INCREMENT,
-  `number` INT NOT NULL,
-  `main_region` VARCHAR(50) NULL,
-  `games` VARCHAR(128) NULL,
-  PRIMARY KEY (`pk_generation`))
 ENGINE = InnoDB;
 
 
@@ -99,42 +113,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `pokemon`.`stats_type`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `pokemon`.`stats_type` ;
-
-CREATE TABLE IF NOT EXISTS `pokemon`.`stats_type` (
-  `pk_stats_type` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`pk_stats_type`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `pokemon`.`stats`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `pokemon`.`stats` ;
-
-CREATE TABLE IF NOT EXISTS `pokemon`.`stats` (
-  `pk_stats` INT NOT NULL AUTO_INCREMENT,
-  `attack` INT NOT NULL,
-  `defense` INT NOT NULL,
-  `special_attack` INT NULL,
-  `special_defense` INT NULL,
-  `speed` INT NOT NULL,
-  `special` INT NULL,
-  `fk_stats_type` INT NULL,
-  PRIMARY KEY (`pk_stats`),
-  INDEX `fk_stats_stats_type1_idx` (`fk_stats_type` ASC) VISIBLE,
-  CONSTRAINT `fk_stats_stats_type1`
-    FOREIGN KEY (`fk_stats_type`)
-    REFERENCES `pokemon`.`stats_type` (`pk_stats_type`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `pokemon`.`nature`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `pokemon`.`nature` ;
@@ -146,6 +124,18 @@ CREATE TABLE IF NOT EXISTS `pokemon`.`nature` (
   `stat_up` VARCHAR(45) NULL,
   `stat_down` VARCHAR(45) NULL,
   PRIMARY KEY (`pk_nature`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pokemon`.`gender`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pokemon`.`gender` ;
+
+CREATE TABLE IF NOT EXISTS `pokemon`.`gender` (
+  `pk_gender` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`pk_gender`))
 ENGINE = InnoDB;
 
 
@@ -166,33 +156,35 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `pokemon`.`item_instance`
+-- Table `pokemon`.`team`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `pokemon`.`item_instance` ;
+DROP TABLE IF EXISTS `pokemon`.`team` ;
 
-CREATE TABLE IF NOT EXISTS `pokemon`.`item_instance` (
-  `pk_item_instance` INT NOT NULL AUTO_INCREMENT,
-  `fk_item` INT NOT NULL,
-  `exists` TINYINT NULL,
-  PRIMARY KEY (`pk_item_instance`),
-  INDEX `fk_item_instance_item1_idx` (`fk_item` ASC) VISIBLE,
-  CONSTRAINT `fk_item_instance_item1`
-    FOREIGN KEY (`fk_item`)
-    REFERENCES `pokemon`.`item` (`pk_item`)
+CREATE TABLE IF NOT EXISTS `pokemon`.`team` (
+  `pk_team` INT NOT NULL AUTO_INCREMENT,
+  `fk_generation` INT NULL,
+  `name` VARCHAR(256) NULL,
+  `tier` VARCHAR(45) NULL,
+  PRIMARY KEY (`pk_team`),
+  INDEX `fk_team_generation1_idx` (`fk_generation` ASC) VISIBLE,
+  CONSTRAINT `fk_team_generation1`
+    FOREIGN KEY (`fk_generation`)
+    REFERENCES `pokemon`.`generation` (`pk_generation`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `pokemon`.`gender`
+-- Table `pokemon`.`type`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `pokemon`.`gender` ;
+DROP TABLE IF EXISTS `pokemon`.`type` ;
 
-CREATE TABLE IF NOT EXISTS `pokemon`.`gender` (
-  `pk_gender` INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `pokemon`.`type` (
+  `pk_type` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`pk_gender`))
+  `sprite` VARCHAR(200) NULL,
+  PRIMARY KEY (`pk_type`))
 ENGINE = InnoDB;
 
 
@@ -209,17 +201,19 @@ CREATE TABLE IF NOT EXISTS `pokemon`.`pokemon_instance` (
   `shiny` TINYINT NULL,
   `fk_form` INT NOT NULL,
   `fk_ability` INT NULL,
-  `fk_stats` INT NOT NULL,
   `fk_nature` INT NULL,
-  `fk_item_instance` INT NULL,
   `fk_gender` INT NULL,
+  `fk_item` INT NULL,
+  `fk_team` INT NULL,
+  `fk_type` INT NULL,
   PRIMARY KEY (`pk_pokemon_instance`),
   INDEX `fk_pokemon_instance_form1_idx` (`fk_form` ASC) VISIBLE,
   INDEX `fk_pokemon_instance_ability1_idx` (`fk_ability` ASC) VISIBLE,
-  INDEX `fk_pokemon_instance_stats1_idx` (`fk_stats` ASC) VISIBLE,
   INDEX `fk_pokemon_instance_nature1_idx` (`fk_nature` ASC) VISIBLE,
-  INDEX `fk_pokemon_instance_item_instance1_idx` (`fk_item_instance` ASC) VISIBLE,
   INDEX `fk_pokemon_instance_gender1_idx` (`fk_gender` ASC) VISIBLE,
+  INDEX `fk_pokemon_instance_item1_idx` (`fk_item` ASC) VISIBLE,
+  INDEX `fk_pokemon_instance_team1_idx` (`fk_team` ASC) VISIBLE,
+  INDEX `fk_pokemon_instance_type1_idx` (`fk_type` ASC) VISIBLE,
   CONSTRAINT `fk_pokemon_instance_form1`
     FOREIGN KEY (`fk_form`)
     REFERENCES `pokemon`.`form` (`pk_form`)
@@ -230,24 +224,29 @@ CREATE TABLE IF NOT EXISTS `pokemon`.`pokemon_instance` (
     REFERENCES `pokemon`.`ability` (`pk_ability`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_pokemon_instance_stats1`
-    FOREIGN KEY (`fk_stats`)
-    REFERENCES `pokemon`.`stats` (`pk_stats`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk_pokemon_instance_nature1`
     FOREIGN KEY (`fk_nature`)
     REFERENCES `pokemon`.`nature` (`pk_nature`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_pokemon_instance_item_instance1`
-    FOREIGN KEY (`fk_item_instance`)
-    REFERENCES `pokemon`.`item_instance` (`pk_item_instance`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk_pokemon_instance_gender1`
     FOREIGN KEY (`fk_gender`)
     REFERENCES `pokemon`.`gender` (`pk_gender`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_pokemon_instance_item1`
+    FOREIGN KEY (`fk_item`)
+    REFERENCES `pokemon`.`item` (`pk_item`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_pokemon_instance_team1`
+    FOREIGN KEY (`fk_team`)
+    REFERENCES `pokemon`.`team` (`pk_team`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_pokemon_instance_type1`
+    FOREIGN KEY (`fk_type`)
+    REFERENCES `pokemon`.`type` (`pk_type`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -282,18 +281,6 @@ CREATE TABLE IF NOT EXISTS `pokemon`.`base_stats` (
     REFERENCES `pokemon`.`form` (`pk_form`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `pokemon`.`type`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `pokemon`.`type` ;
-
-CREATE TABLE IF NOT EXISTS `pokemon`.`type` (
-  `pk_type` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`pk_type`))
 ENGINE = InnoDB;
 
 
@@ -337,6 +324,7 @@ DROP TABLE IF EXISTS `pokemon`.`move` ;
 
 CREATE TABLE IF NOT EXISTS `pokemon`.`move` (
   `pk_move` INT NOT NULL AUTO_INCREMENT,
+  `fk_move` INT NULL,
   `fk_type` INT NOT NULL,
   `fk_generation` INT NOT NULL,
   `name` VARCHAR(128) NOT NULL,
@@ -357,9 +345,11 @@ CREATE TABLE IF NOT EXISTS `pokemon`.`move` (
   `min_turns` INT NULL,
   `healing` FLOAT NULL,
   `recoil` FLOAT NULL,
+  `isZ` TINYINT NULL,
   PRIMARY KEY (`pk_move`),
   INDEX `fk_move_type1_idx` (`fk_type` ASC) VISIBLE,
   INDEX `fk_move_generation1_idx` (`fk_generation` ASC) VISIBLE,
+  INDEX `fk_move_move1_idx` (`fk_move` ASC) VISIBLE,
   CONSTRAINT `fk_move_type1`
     FOREIGN KEY (`fk_type`)
     REFERENCES `pokemon`.`type` (`pk_type`)
@@ -368,6 +358,11 @@ CREATE TABLE IF NOT EXISTS `pokemon`.`move` (
   CONSTRAINT `fk_move_generation1`
     FOREIGN KEY (`fk_generation`)
     REFERENCES `pokemon`.`generation` (`pk_generation`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_move_move1`
+    FOREIGN KEY (`fk_move`)
+    REFERENCES `pokemon`.`move` (`pk_move`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -381,7 +376,6 @@ DROP TABLE IF EXISTS `pokemon`.`move_instance` ;
 CREATE TABLE IF NOT EXISTS `pokemon`.`move_instance` (
   `pk_move_instance` INT NOT NULL AUTO_INCREMENT,
   `fk_move` INT NOT NULL,
-  `remaining_power_points` INT NOT NULL,
   `fk_pokemon_instance` INT NULL,
   PRIMARY KEY (`pk_move_instance`),
   INDEX `fk_move_instance_move1_idx` (`fk_move` ASC) VISIBLE,
@@ -394,6 +388,43 @@ CREATE TABLE IF NOT EXISTS `pokemon`.`move_instance` (
   CONSTRAINT `fk_move_instance_pokemon_instance1`
     FOREIGN KEY (`fk_pokemon_instance`)
     REFERENCES `pokemon`.`pokemon_instance` (`pk_pokemon_instance`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pokemon`.`stats_type`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pokemon`.`stats_type` ;
+
+CREATE TABLE IF NOT EXISTS `pokemon`.`stats_type` (
+  `pk_stats_type` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`pk_stats_type`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pokemon`.`stats`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pokemon`.`stats` ;
+
+CREATE TABLE IF NOT EXISTS `pokemon`.`stats` (
+  `pk_stats` INT NOT NULL AUTO_INCREMENT,
+  `fk_stats_type` INT NOT NULL,
+  `hp` INT NULL,
+  `attack` INT NULL,
+  `defense` INT NULL,
+  `special_attack` INT NULL,
+  `special_defense` INT NULL,
+  `speed` INT NULL,
+  `special` INT NULL,
+  PRIMARY KEY (`pk_stats`),
+  INDEX `fk_stats_stats_type1_idx` (`fk_stats_type` ASC) VISIBLE,
+  CONSTRAINT `fk_stats_stats_type1`
+    FOREIGN KEY (`fk_stats_type`)
+    REFERENCES `pokemon`.`stats_type` (`pk_stats_type`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -669,6 +700,31 @@ CREATE TABLE IF NOT EXISTS `pokemon`.`move_has_flag` (
   CONSTRAINT `fk_move_has_flag_flag1`
     FOREIGN KEY (`fk_flag`)
     REFERENCES `pokemon`.`flag` (`pk_flag`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pokemon`.`pokemon_instance_has_stats`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pokemon`.`pokemon_instance_has_stats` ;
+
+CREATE TABLE IF NOT EXISTS `pokemon`.`pokemon_instance_has_stats` (
+  `pk_pokemon_instance_has_stats` INT NOT NULL AUTO_INCREMENT,
+  `fk_pokemon_instance` INT NOT NULL,
+  `fk_stats` INT NOT NULL,
+  INDEX `fk_pokemon_instance_has_stats_stats1_idx` (`fk_stats` ASC) VISIBLE,
+  INDEX `fk_pokemon_instance_has_stats_pokemon_instance1_idx` (`fk_pokemon_instance` ASC) VISIBLE,
+  PRIMARY KEY (`pk_pokemon_instance_has_stats`),
+  CONSTRAINT `fk_pokemon_instance_has_stats_pokemon_instance1`
+    FOREIGN KEY (`fk_pokemon_instance`)
+    REFERENCES `pokemon`.`pokemon_instance` (`pk_pokemon_instance`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_pokemon_instance_has_stats_stats1`
+    FOREIGN KEY (`fk_stats`)
+    REFERENCES `pokemon`.`stats` (`pk_stats`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

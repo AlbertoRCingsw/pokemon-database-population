@@ -29,7 +29,9 @@ The design is changing as the database is populated to better adapt to the extra
 
 - The table form_learned_moves has proven to be one of the most complex tables in the database, but its complexity is warranted. It's responsible for storing which moves are learned by each Pokémon in each game/version group and, in turn, in each generation. This was deemed necessary because some moves may be added to the movepool, and some of them may be removed from it, in each generation and version group.
 
-- Move have a lot of information to store, so they are the entity with the highest number of tables. They are needed to store different versions and effects, because moves may have more than one effect (for example, increasing more than one stat) or their characteristics (power, accuracy...) may change when a new generation is introduced.
+- Moves have a lot of information to store, so they are the entity with the highest number of tables. They are needed to store different versions and effects, because moves may have more than one effect (for example, increasing more than one stat) or their characteristics (power, accuracy...) may change when a new generation is introduced.
+
+- There is no single table or relationship representing whether a move exists in a given generation. This is intentional because including one would result in a lot of redundant rows in either move or move_version. Whether a move exists can be deduced using form_learned_moves. For instance, Pursuit does not exist in Generation VIII, so no Pokémon is able to learn it in that generation. That means that you cannot transfer the move from Pokémon Sun, Moon, Ultra Sun or Ultra Moon either because if the move existed, at least one Pokémon would be able to use it.
 
 - Generation is vital to the database becaause it allows it to store different versions of things like base stats, move versions, abilities...
 
@@ -43,7 +45,7 @@ The .env file contains the following constants: DB_USER, DB_PASSWORD, DB_NAME, D
 
 After creating the database, the main.py file should be run from the project's root directory.
 
-The project performs a large amount of requests, so a delay is intentionally introduced in the process_url function (inside utils.py) to avoid overwhelming the servers. Not using the cache will result in a significantly longer runtime, which sits at around 12 minutes using it in the test environment.
+The project performs a large amount of requests, so a delay is intentionally introduced in the process_url function (inside utils.py) to avoid overwhelming the servers. Not using the cache will result in a significantly longer runtime. Using it results in an execution time of around 6 minutes in the test environment.
 
 ## State of development
 
@@ -59,28 +61,59 @@ Some refactoring was done after adding items and abilities to the database.
 
 Natures and gender ratios were added.
 
-Some clean up was done: updated find_move_index in moves_by_pokemon, improved docstrings in utils.py, removed redundant tables and made sure that no table has a composite primary key.
+Some clean up was done: updated find_move_index in moves_by_pokemon, improved docstrings in utils.py, removed redundant tables and made sure that no table has a composite primary key. Also created the create_db.bat file.
+
+Refactoring: Encapsulated all the select, insert, update and delete queries, replaced prints with loggers, improved error handling when performing requests and queries and added multihreading. 
+
+Fixed some data: move versions, Starter Pikachu and Eevve signatures moves...
+
+Now Pokémon teams can be inserted in the database from text files.
+
 
 ## Accomplished tasks in the last commit
 
-Some clean up: 
-
-- Created the create_db.bat file.
+- In db.py, four generic methods were added: simple_select, simple_insert, simple_update and simple_delete.
+- abilities_data.py no longer manages the relationship between Pokémon and their abilities. It is now done in pokemon_data.py
+- In moves_data.py, the insert_move and process_showdown_url methods were removed.
+- Fixed some cap Pikachus gender.
+- Starters Pikachu and Eeevee and their signature moves were featured in the database, but they were not related.
+- Added pokemon_instances.py. This file can read a Pokémon team from a text file and insert it in the database.
+- Added the team table.
+- Moves that never miss now use null accuracy instead of 0.
+- The is_default and switchable fields in the form table are now properly populated.
+- Replaced all prints with loggers, improving performance and bugs traceability.
+- Improved error handling when performing HTTP requests and database queries.
+- Added multithreading.
 
 ## To Do
 
-    • Retrieve a sprite for each type.
-    • Insert whether or not the forms are switchable in combat. For instance, Rotom cannot change forms 
-    in the middle of combat, but both Meloetta and Darmanitan can.
-    • Insert some abilities availability changes. For instance, Gengar lost Levitate in Gen VII. 
-    Reflect that change in the database. 
-    • Create tables for managing Pokémon teams and trainers.
+    - [x] Retrieve a sprite for each type.
+    - [x] Insert whether or not the forms are switchable in combat. For instance, Rotom cannot change forms 
+          in the middle of combat, but both Meloetta and Darmanitan can.
+    - [x] Insert some abilities availability changes. For instance, Gengar lost Levitate in Gen VII. 
+          Reflect that change in the database. 
+    - [x] Create a table to manage Pokémon teams.
 
-    • More refactoring. Mainly to improve readability, consistency and performance. Also to clean 
-    up some duplicate code and encapsulate repeated select and insert operations in a single function 
-    (one for each).
+    - [x] More refactoring. Mainly to improve readability, consistency and performance. Also to clean 
+          up some duplicate code and encapsulate repeated select and insert operations in a single function 
+          (one for each).
 
-    • Implementing a more robust approach to handle requests and multi-threading is also planned.
+    - [x] Implementing a more robust approach to handle requests and multi-threading is also planned.
+
+    - [ ] Create a table to manage trainers.
+
+    - [ ] Unify error handling in requests. 
+          In insert_special_stat from pokemon_special_stat.py
+          In insert_status_z_moves from moves_data.py
+          In process_url from utils.py 
+
+    - [ ] Add some docstrings. Mainly in every function called from main.py.
+
+    - [ ] Review fixes.py and the database, because it should be checked whether the fix is already in 
+          or prevent duplicates from being inserted. Since the API is public, missing information may 
+          be added after caching the data.
+
+    - [ ] Add some more database views.
 
 ## Future work
 
@@ -101,10 +134,12 @@ There are flags associated with each move, and they are used to register some ke
 
 Items availability across generations is poorly documented in both the primary and secondary sources. Automating the extraction of items availability outside of Generations III-VIII is currently not feasible. This will be revisited in the future, since items availability is important for the database's main goal.
 
-Likewise, there doesn't seem to be a source where it is documented when Pokémon gain new abilities. All the current abilities can be easily retrieved, as well as important changes like Chandelure's Shadow Tag in Gen V --> Chandelure's Infiltrator in Gen VI, but a more granular approach is desirable. This will be revisited, since there is a lot of documentation available in natural language.
+Likewise, there doesn't seem to be a source where it is documented when Pokémon gain new abilities. All the current abilities can be easily retrieved, as well as important changes like Chandelure's Shadow Tag in Gen V -> Chandelure's Infiltrator in Gen VI, but a more granular approach is desirable. This will be revisited, since there is a lot of documentation available in natural language.
 
 fixes.py is a file where I update and store some missing data manually. It is there so that I can add missing information as I come across it.
 
-Initially, I thought that it would be a good idea to generate the .sql scripts necessary to populate the database, but it soon proved to be extremely inefficient. That's why they are included in the .gitignore file. Same goes for the .bat files, since I will no longer be needing to develop a script that executes the .sql scripts in the correct order. This will be done using the MySQL Python library. The code that generated the .sql files was ultimately removed.
+PokéAPI does not provide separate entries in the /pokemon endpoint or artwork for the alternate forms of Cherrim, Shellos, Vivillon, Furfrou and Alcremie. Their alternate forms are purely cosmetic and this only affects these specific Pokémon, so it was decided to not feature them in order to keep the code as simple and maintainable as possible.
+
+Initially, I thought that it would be a good idea to generate the .sql scripts necessary to populate the database, but it soon proved to be extremely inefficient. The code that generated the .sql files was ultimately removed. However, the idea of using CLI scripts lives on as the create_db.bat file was created to automatically initialize the database.
 
 Right now, the project uses relative paths, so main.py should be executed from the root directory.

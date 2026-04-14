@@ -1,0 +1,55 @@
+Politoed @ Leftovers  
+Ability: Drizzle  
+EVs: 252 HP / 252 Def / 4 SpD  
+Bold Nature  
+- Scald  
+- Protect  
+- Refresh  
+- Toxic  
+
+Landorus-Therian @ Leftovers  
+Ability: Intimidate  
+EVs: 240 HP / 16 Def / 252 Spe  
+Naive Nature  
+IVs: 30 Spe  
+- Stealth Rock  
+- Earthquake  
+- U-turn  
+- Hidden Power [Ice]  
+
+Scizor @ Choice Scarf  
+Ability: Technician  
+EVs: 252 Atk / 4 SpD / 252 Spe  
+Jolly Nature  
+- U-turn  
+- Pursuit  
+- Superpower  
+- Bullet Punch  
+
+Rotom-Wash @ Choice Scarf  
+Ability: Levitate  
+EVs: 252 SpA / 4 SpD / 252 Spe  
+Timid Nature  
+- Volt Switch  
+- Hydro Pump  
+- Hidden Power [Fire]  
+- Trick  
+
+Tentacruel @ Black Sludge  
+Ability: Rain Dish  
+EVs: 252 HP / 4 Def / 252 SpD  
+Calm Nature  
+- Toxic  
+- Protect  
+- Rapid Spin  
+- Scald  
+
+Ferrothorn @ Leftovers  
+Ability: Iron Barbs  
+EVs: 252 HP / 200 Def / 52 SpD  
+Sassy Nature  
+- Spikes  
+- Leech Seed  
+- Protect  
+- Power Whip  
+

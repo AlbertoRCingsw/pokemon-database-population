@@ -1,34 +1,44 @@
+from data_population import gender_stat_type
+from data_population import types_data
+from data_population import generations_data
+from data_population import type_generation_relationship
+from data_population import version_groups_data
+from data_population import pokemon_data
+from data_population import moves_by_pokemon
+from data_population import pokemon_special_stat
+from data_population import stat_type_changes
+from data_population import moves_data
+from data_population import items_data
+from data_population import abilities_data
+from data_population import natures
+from data_population import fixes
+from data_population import pokemon_instances
+from data_population import utils
+
 from pathlib import Path
 import time as t
 import db
-from data_generation import utils
-from data_generation import gender_stat_type
-from data_generation import types_data
-from data_generation import generations_data
-from data_generation import type_generation_relationship
-from data_generation import version_groups_data
-from data_generation import pokemon_data
-from data_generation import moves_by_pokemon
-from data_generation import pokemon_special_stat
-from data_generation import stat_type_changes
-from data_generation import moves_data
-from data_generation import items_data
-from data_generation import abilities_data
-from data_generation import natures
-from data_generation import fixes
+from logger_config import logger
+
+import threading
 
 from dotenv import load_dotenv
 import os
 
 load_dotenv(".env")
 
-# Important constants
+# Important URLs
 SHOWDOWN_MOVES_URL = "https://play.pokemonshowdown.com/data/moves.json"
 SHOWDOWN_POKEDEX_URL = "https://play.pokemonshowdown.com/data/pokedex.json"
 POKEAPI_BASE_URL = "https://pokeapi.co/api/v2/"
 
+GEN_I_POKEMON_URL = "https://bulbapedia.bulbagarden.net/wiki/List_of_Pok%C3%A9mon_by_base_stats_in_Generation_I"
+Z_MOVES_URL = "https://bulbapedia.bulbagarden.net/wiki/Z-Move"
+ITEMS_URL = "https://pokeapi.co/api/v2/item/"
+
 UPPER_GENERATIONS_LIMIT = 10 # 1 + the number of generations -> used in loops
 
+# When retrieving data from external sources, it is stored in a cache directory
 CACHE_DIRECTORY = Path(os.getenv("CACHE_DIR"))
 TYPES_DIRECTORY = CACHE_DIRECTORY / "types/"
 GENERATIONS_DIRECTORY = CACHE_DIRECTORY / "generations/"
@@ -39,78 +49,153 @@ ITEMS_DIRECTORY = CACHE_DIRECTORY / "items/"
 ABILITIES_DIRECTORY = CACHE_DIRECTORY / "abilities/"
 NATURES_DIRECTORY = CACHE_DIRECTORY / "natures/"
 
-# Open connection to the database
-conn = db.connect_to_db()
-cur = conn.cursor()
+# Testing files 
+EXAMPLE_TEAM = Path("./gen_v_team.txt")
+GEN_IX_EXAMPLE_TEAM = Path("./gen_ix_team.txt")
 
-t_0 = t.time() # To check the execution time
+# Example teams
+GEN_V_TEAM = utils.read_from_text_file(EXAMPLE_TEAM)
+GEN_IX_TEAM = utils.read_from_text_file(GEN_IX_EXAMPLE_TEAM)
 
-# Inserts genders and stats types
-# There are three possible genders: male, female and unknown
-# There are two stats types: ev and iv
-gender_stat_type.insert_genders_and_stats_types(cur)
+def initialize_connection_to_db():
+    connection = db.connect_to_db()
+    cursor = connection.cursor(buffered=True) # This makes it so all information is consumed after a SELECT query
+    return connection, cursor
 
-# Insert the types
-types_data.insert_types(cur, TYPES_DIRECTORY)
+def task(function, *args):
+    connection, cursor = initialize_connection_to_db()
+    function(cursor, *args)
+    db.close_connection_to_db(connection, cursor)
 
-# Insert the generations
-generations_data.insert_generations(cur, GENERATIONS_DIRECTORY)
+def main() -> None:
 
-# Get the names of the types per generation
-type_generation_relationship.perform_insertion(cur, 
-                                               UPPER_GENERATIONS_LIMIT)
+    t_0 = t.time() 
 
-# Insert the version groups of each generation
-version_groups_data.insert_version_groups(cur,
-                                          UPPER_GENERATIONS_LIMIT, GENERATIONS_DIRECTORY)
+    gender_stat_thread = threading.Thread(target=task, 
+                                        args=(gender_stat_type.insert_genders_and_stats_types,))
+    gender_stat_thread.start()
 
-# Inserts the pokemon
-for generation_number in range(1, UPPER_GENERATIONS_LIMIT):
-    pokemon_data.insert_pokemon(cur, generation_number,
-                                POKEMON_SPECIES_DIRECTORY, POKEMON_FORMS_DIRECTORY, 
-                                CACHE_DIRECTORY, SHOWDOWN_POKEDEX_URL)
-# Inserts the moves
-for generation_number in range(1, UPPER_GENERATIONS_LIMIT):
-    moves_data.insert_moves(cur, generation_number, SHOWDOWN_MOVES_URL, 
-                           MOVES_DIRECTORY)
+    types_thread = threading.Thread(target=task, 
+                                        args=(types_data.insert_types, TYPES_DIRECTORY))
+    types_thread.start()
 
-# Inserts the relationship form_learned_moves
-# It represents the move learned by the pokemon in each generation
-for generation_number in range(1, UPPER_GENERATIONS_LIMIT):
-    moves_by_pokemon.insert_learned_moves(cur, generation_number, 
-                                          MOVES_DIRECTORY, POKEMON_FORMS_DIRECTORY)
+    generations_thread = threading.Thread(target=task, 
+                                        args=(generations_data.insert_generations, GENERATIONS_DIRECTORY))
+    generations_thread.start()
 
-db.commit_data(conn)
+    natures_thread = threading.Thread(target=task, 
+                                        args=(natures.insert_natures, NATURES_DIRECTORY))
+    natures_thread.start()
 
-# Performs web scraping to obtain the special stat for each Pokémon 
-# Inserts it in the database
-pokemon_special_stat.insert_special_stat(cur)
 
-# Manages typing and stats versioning
-# Some Pokémon had their stats or typing changed over the years
-stat_type_changes.stat_changes(cur)
+    generations_thread.join()
 
-# Inserts items
-items_data.insert_items(cur, ITEMS_DIRECTORY)
+    version_groups_thread = threading.Thread(target=task, 
+                                        args=(version_groups_data.insert_version_groups, UPPER_GENERATIONS_LIMIT, GENERATIONS_DIRECTORY))
+    version_groups_thread.start()
 
-# Inserts abilities and their relationship with Pokémon
-for i in range(1, UPPER_GENERATIONS_LIMIT):
-    abilities_data.insert_abilities(cur, i, ABILITIES_DIRECTORY)
+    items_thread = threading.Thread(target=task, 
+                                        args=(items_data.insert_items, ITEMS_DIRECTORY, ITEMS_URL))
+    items_thread.start()
 
-# Abilities history
 
-# Inserts natures
-natures.insert_natures(cur, NATURES_DIRECTORY)
+    types_thread.join()
+    type_generation_thread = threading.Thread(target=task,
+                                            args=(type_generation_relationship.perform_insertion, UPPER_GENERATIONS_LIMIT))
+    type_generation_thread.start()
 
-# Teams
+    version_groups_thread.join()
+    abilities_threads = []
+    for i in range(1, UPPER_GENERATIONS_LIMIT):
+        abilities_thread = threading.Thread(target=task,
+                                            args=(abilities_data.insert_abilities, i, ABILITIES_DIRECTORY))
+        abilities_threads.append(abilities_thread)
+        abilities_thread.start()
 
-# Trainers
+    for ability_thread in abilities_threads:
+        ability_thread.join()
 
-fixes.fix_data(cur)
 
-# Closes connection to the database
-db.close_connection_to_db(conn, cur)
 
-# The execution time is calculated and shown here
-time = t.time() - t_0
-print(time/60)
+    pokemon_threads = []
+    moves_threads = []
+    for i in range(1, UPPER_GENERATIONS_LIMIT):
+        pokemon_thread = threading.Thread(target=task,
+                                            args=(pokemon_data.insert_pokemon, i, POKEMON_SPECIES_DIRECTORY, 
+                                                    POKEMON_FORMS_DIRECTORY, CACHE_DIRECTORY, SHOWDOWN_POKEDEX_URL))
+        pokemon_threads.append(pokemon_thread)
+        pokemon_thread.start()
+
+        move_thread = threading.Thread(target=task,
+                                            args=(moves_data.insert_moves, i, SHOWDOWN_MOVES_URL, 
+                                                    Z_MOVES_URL, MOVES_DIRECTORY))
+        moves_threads.append(move_thread)
+        move_thread.start()
+
+    # This thread inserts all Generation I Pokémon, so it is vital that it ends before updating the special values
+    pokemon_threads[0].join()
+
+    # Performs web scraping to obtain the special stat for each Pokémon 
+    special_stat_thread = threading.Thread(target=task,
+                                            args=(pokemon_special_stat.insert_special_stat, GEN_I_POKEMON_URL)) 
+    special_stat_thread.start()
+
+    for i in range(0, UPPER_GENERATIONS_LIMIT - 1):
+        if i == 0:
+            moves_threads[i].join()
+        else:
+            pokemon_threads[i].join()
+            moves_threads[i].join()
+
+    # Some Pokémon had their stats or typing changed over the years
+    stat_and_types_changes_thread = threading.Thread(target=task,
+                                            args=(stat_type_changes.stat_changes,))
+    stat_and_types_changes_thread.start()
+
+
+    moves_learned_by_pokemon_threads = []
+    for i in range(1, UPPER_GENERATIONS_LIMIT):
+        thread = threading.Thread(target=task,
+                                            args=(moves_by_pokemon.insert_learned_moves, i, 
+                                                            MOVES_DIRECTORY, POKEMON_FORMS_DIRECTORY))
+        moves_learned_by_pokemon_threads.append(thread)
+        thread.start()
+
+    for thread in moves_learned_by_pokemon_threads:
+        thread.join()
+
+
+    # Some data needed to be added or fixes
+    fixes_thread = threading.Thread(target=task,
+                                            args=(fixes.fix_data,))
+    fixes_thread.start()
+
+
+    gender_stat_thread.join()
+    type_generation_thread.join()
+    natures_thread.join()
+    items_thread.join()
+    special_stat_thread.join()
+    stat_and_types_changes_thread.join()
+    fixes_thread.join()
+
+
+    connection, cursor = initialize_connection_to_db()
+
+    # Teams
+    team = utils.read_from_text_file(EXAMPLE_TEAM)
+    pokemon_instances.insert_pokemon_team(cursor, 5, 'Example', team)
+
+    gen_ix_team = utils.read_from_text_file(GEN_IX_EXAMPLE_TEAM) 
+    pokemon_instances.insert_pokemon_team(cursor, 9, "Gen IX example", gen_ix_team)
+
+    db.close_connection_to_db(connection, cursor)
+
+    # Prints the execution time
+    time = t.time() - t_0
+    minutes = time // 60
+    seconds = "{:.2f}".format(time % 60)
+    logger.info(f"Execution time: {minutes} minutes {seconds} seconds")
+
+if __name__ == "__main__":
+    main()
